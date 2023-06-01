@@ -20,6 +20,8 @@ public class Customer  implements Serializable {
     private String phone;
     private String address;
     private String email;
+    private String password;
+    private String name;
 
     private Integer gender;
     @Enumerated(EnumType.STRING)
