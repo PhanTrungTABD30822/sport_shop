@@ -31,13 +31,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/", "/register", "/error")
-                        .permitAll()
-                        .requestMatchers("/books/edit", "/books/delete")
-                        .authenticated()
-                        .requestMatchers("/books", "/books/add")
-                        .authenticated()
-                        .anyRequest().authenticated()
+
+//                        .requestMatchers("images/*").permitAll()
+//                        .requestMatchers("admin/*").permitAll()
+//                        .requestMatchers("assets/*").permitAll()
+//                        .requestMatchers("shop/*").permitAll()
+//                        .requestMatchers("shop/*").permitAll()
+                        .anyRequest().permitAll()
                 ) .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/")

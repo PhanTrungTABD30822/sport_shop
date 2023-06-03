@@ -16,6 +16,7 @@ public class CartController {
         return "cart/index";
     }
 
+    
     @GetMapping("/checkout")
     public String checkout(){
         return "cart/checkout";

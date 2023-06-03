@@ -2,6 +2,8 @@ package com.shop.controller;
 
 import com.shop.common.UserRole;
 import com.shop.entities.Customer;
+import com.shop.entities.Product;
+import com.shop.repositories.ProductRepository;
 import com.shop.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping
-    public String home() {
-        Authentication auth = SecurityContextHolder. getContext(). getAuthentication();
-        UserDetails user= (UserDetails) auth.getPrincipal();
-        System.out.println(user);
+    public String home(Model model) {
+        model.addAttribute("products", productRepository.findAll());
         return "home/index";
     }
 
@@ -38,16 +40,17 @@ public class HomeController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("customer",new Customer());
+        model.addAttribute("customer", new Customer());
         return "home/register";
     }
+
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult, Model model){
+    public String register(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult, Model model) {
         System.out.println(bindingResult);
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(error
-                    -> model.addAttribute(error.getField()+"_error", error.getDefaultMessage()));
+                    -> model.addAttribute(error.getField() + "_error", error.getDefaultMessage()));
             return "home/register";
         }
 
@@ -58,6 +61,7 @@ public class HomeController {
         customerService.save(customer);
         return "redirect:/login";
     }
+
     @GetMapping("about")
     public String about() {
         return "home/about";
