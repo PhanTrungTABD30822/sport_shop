@@ -2,6 +2,8 @@ package com.shop.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.security.core.userdetails.User;
 
 
@@ -19,8 +21,12 @@ public class Comment  implements Serializable {
     private Integer star;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Customer customer;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Product product;
 }
