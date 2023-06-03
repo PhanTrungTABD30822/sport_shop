@@ -2,6 +2,8 @@ package com.shop.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,5 +19,7 @@ public class Category   {
 
     private String name;
     @OneToMany(mappedBy = "category")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<Product> products;
 }

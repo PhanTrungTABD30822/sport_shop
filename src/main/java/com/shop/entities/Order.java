@@ -3,6 +3,8 @@ package com.shop.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 
 
@@ -37,8 +39,12 @@ public class Order implements Serializable {
     private Integer status;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Customer customer;
 
     @OneToMany(mappedBy = "orders")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<OrderDetails> orderDetails;
 }
