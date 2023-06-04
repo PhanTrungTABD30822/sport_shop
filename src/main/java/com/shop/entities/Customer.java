@@ -4,6 +4,8 @@ package com.shop.entities;
 import com.shop.common.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 
 import java.io.Serializable;
@@ -28,7 +30,11 @@ public class Customer  implements Serializable {
     private UserRole role;
 
     @OneToMany(mappedBy = "customer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<Comment> comments;
     @OneToMany(mappedBy = "customer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<Order> orders;
 }
