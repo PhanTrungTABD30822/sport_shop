@@ -54,7 +54,6 @@ public class HomeController {
             return "home/register";
         }
 
-
         customer.setRole(UserRole.USER);
         customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
         System.out.println(customer);
