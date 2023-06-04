@@ -27,6 +27,7 @@ public class Product {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Comment> comments;
+
     @OneToMany(mappedBy = "product")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

@@ -20,9 +20,9 @@ public class OrderDetails  implements Serializable {
     private Order orders;
     @Id
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JoinColumn(name = "product_id")
     private Product product;
     private Integer quantity;
 
