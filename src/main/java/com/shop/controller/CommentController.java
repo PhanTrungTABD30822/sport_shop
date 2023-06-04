@@ -6,6 +6,7 @@ import com.shop.entities.Product;
 import com.shop.repositories.CommentRepository;
 import com.shop.repositories.CustomerRepository;
 import com.shop.repositories.ProductRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,24 +26,24 @@ public class CommentController {
     private ProductRepository productRepository;
     @Autowired
     private CustomerRepository customerRepository;
+
     @PostMapping("/product/comments/{productId}")
-    public String createComment(@PathVariable("productId") Integer productId, @ModelAttribute("comment") Comment comment)
-    {
+    public String createComment(@PathVariable("productId") Integer productId, @ModelAttribute("comment") Comment comment, Principal principal) {
+
+        System.out.println(principal.getName());
 
 
         Optional<Product> productOptional = productRepository.findById(productId);
-        if(productOptional.isEmpty())
-        {
+        if (productOptional.isEmpty()) {
             throw new RuntimeException("Product not found with id: " + productId);
         }
         Product product = productOptional.get();
 
-        Optional<Customer> customerOptional = customerRepository.findById(2);
-        if(customerOptional.isEmpty())
-        {
+        Customer customer = customerRepository.findByEmail(principal.getName());
+        if (customer==null) {
             throw new RuntimeException("Customer not found with id: " + productId);
         }
-        Customer customer = customerOptional.get();
+
         comment.setProduct(product);
         comment.setCustomer(customer);
         comment.setContent(comment.getContent());
@@ -49,26 +51,45 @@ public class CommentController {
         commentRepository.save(comment);
         return "redirect:/product/{productId}";
     }
+    @ResponseBody
+    @PostMapping("/api/comment")
+    public String createComment(HttpServletRequest httpServletRequest, Principal principal) {
+        Optional<Product> productOptional = productRepository.findById(Integer.valueOf(httpServletRequest.getParameter("productId")));
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("Product not found with id: " + httpServletRequest.getParameter("content"));
+        }
+        Product product = productOptional.get();
+
+        Customer customer = customerRepository.findByEmail("123@gmail.com");
+        if (customer==null) {
+            throw new RuntimeException("Customer not found with id: " + httpServletRequest.getParameter("content"));
+        }
+        Comment comment=new Comment();
+        comment.setProduct(product);
+        comment.setCustomer(customer);
+        comment.setContent((String) httpServletRequest.getParameter("content"));
+        comment.setStar(Integer.valueOf(httpServletRequest.getParameter("star")));
+        commentRepository.save(comment);
+
+        return customer.getName();
+    }
+
     @PostMapping("product/{productId}/comments/{commentId}")
-    public Comment updateComment(@PathVariable Integer commentId)
-    {
+    public Comment updateComment(@PathVariable Integer commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        if (!optionalComment.isPresent())
-        {
+        if (!optionalComment.isPresent()) {
             throw new RuntimeException("Comment is not found in database");
         }
         Comment comment = optionalComment.get();
         comment.setContent(comment.getContent());
-        return  null;
+        return null;
     }
 
     @DeleteMapping("/product/{productId}/comments/{commentId}")
-    public String deletedComment(@PathVariable Integer commentId)
-    {
-        Optional<Comment> optionalComment =  commentRepository.findById(commentId);
-        if(!optionalComment.isPresent())
-        {
-            throw  new RuntimeException("Comment is not found in database");
+    public String deletedComment(@PathVariable Integer commentId) {
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if (!optionalComment.isPresent()) {
+            throw new RuntimeException("Comment is not found in database");
         }
         Comment comment = optionalComment.get();
         commentRepository.delete(comment);
