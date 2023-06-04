@@ -3,6 +3,8 @@ package com.shop.entities;
 
 import com.shop.common.UserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -19,10 +21,16 @@ public class Customer  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Size(max = 10, message = "Số điện thoại chỉ được 10 số")
+    @NotBlank(message = "Số điện thoại không được để trống! ")
     private String phone;
-    private String address;
+    @NotBlank(message = "Email không được để trống! ")
+    @Size(max = 50, message = "Email không quá 50 ký tự")
     private String email;
+    @NotBlank(message = "Password không được để trống")
     private String password;
+    @Size(max = 50, message = "Tên không quá 50 ký tự")
+    @NotBlank(message = "Your name is required")
     private String name;
 
     private Integer gender;
