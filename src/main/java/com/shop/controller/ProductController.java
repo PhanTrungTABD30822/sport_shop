@@ -1,5 +1,8 @@
 package com.shop.controller;
 
+import com.shop.entities.Product;
+import com.shop.repositories.ProductRepository;
+import com.shop.service.ProductService;
 import com.shop.entities.Comment;
 import com.shop.entities.Customer;
 import com.shop.repositories.CommentRepository;
@@ -10,35 +13,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-public class ProductController
-{
+public class ProductController {
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
     private CustomerRepository customerRepository;
-
     @GetMapping("/product")
-    public String index()
-    {
-        return "product/index";
-    }
-    @GetMapping("/product/{productId}")
-    public String getDetailProduct(@PathVariable Integer productId, Model model) {
-        List<Comment> listComments = commentRepository.findAllByProductId(productId);
-        System.out.println(listComments);
-        model.addAttribute("listComments", listComments);
-        model.addAttribute("comment", new Comment());
+    public String index() {
         return "product/index";
     }
 
+    @GetMapping("/product/{productId}")
+    public String getDetailIdProduct(@PathVariable("productId") Integer productId, Model model) {
+        Product product = productRepository.findById(productId).orElse(null);
+        if (product != null) {
+            model.addAttribute("product", product);
+            List<Comment> listComments = commentRepository.findAllByProductId(productId);
+            System.out.println(listComments);
+            model.addAttribute("listComments", listComments);
+            model.addAttribute("comment", new Comment());
+            return "product/index";
+        }else{
+            return "home/index";
+        }
+
+    }
 }
