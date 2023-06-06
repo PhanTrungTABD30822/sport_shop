@@ -39,7 +39,7 @@ public class CommentController {
         }
         Product product = productOptional.get();
 
-        Customer customer = customerRepository.findByEmail(principal.getName());
+        Customer customer = customerRepository.findByEmail("123@gmail.com");
         if (customer==null) {
             throw new RuntimeException("Customer not found with id: " + productId);
         }
@@ -59,8 +59,13 @@ public class CommentController {
             throw new RuntimeException("Product not found with id: " + httpServletRequest.getParameter("content"));
         }
         Product product = productOptional.get();
-
-        Customer customer = customerRepository.findByEmail("123@gmail.com");
+        if (principal == null)
+        {
+            throw new RuntimeException("You are not logged into your account, please login before comment");
+        }
+        System.out.println("Show log principal: " + principal.getName());
+        String email = principal.getName();
+        Customer customer = customerRepository.findByEmail(email);
         if (customer==null) {
             throw new RuntimeException("Customer not found with id: " + httpServletRequest.getParameter("content"));
         }
@@ -70,7 +75,6 @@ public class CommentController {
         comment.setContent((String) httpServletRequest.getParameter("content"));
         comment.setStar(Integer.valueOf(httpServletRequest.getParameter("star")));
         commentRepository.save(comment);
-
         return customer.getName();
     }
 
@@ -95,5 +99,6 @@ public class CommentController {
         commentRepository.delete(comment);
         return "product/index";
     }
+
 }
 
