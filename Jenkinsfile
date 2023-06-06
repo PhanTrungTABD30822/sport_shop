@@ -1,19 +1,25 @@
 pipeline {
-    agent any
+	agent any
 
-     stages {
-         stage ('Build') {
-                 steps {
-                     sh 'mvn -Dmaven.test.failure.ignore=true install'
-                 }
-            }
-        }
-    post {
-        success {
-            echo "SUCCESSFUL"
-        }
-        failure {
-            echo "FAILED"
-        }
-    }
+
+	stages {
+
+		stage('Build'){
+			steps {
+				bat "mvn clean install -DskipTests"
+			}
+		}
+
+		stage('Test'){
+			steps{
+				bat "mvn test"
+			}
+		}
+
+		stage('Deploy') {
+			steps {
+			    bat "mvn jar:jar deploy:deploy"
+			}
+		}
+	}
 }
