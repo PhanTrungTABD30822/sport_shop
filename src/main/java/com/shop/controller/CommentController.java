@@ -43,7 +43,6 @@ public class CommentController {
         if (customer==null) {
             throw new RuntimeException("Customer not found with id: " + productId);
         }
-
         comment.setProduct(product);
         comment.setCustomer(customer);
         comment.setContent(comment.getContent());
