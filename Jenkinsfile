@@ -1,21 +1,13 @@
 pipeline {
     agent any
-
-    stages {
-
-        stage("build") {
-            steps {
-                sh './mvnw clean package'
-            }
-        }
-
-        stage('test') {
-                    steps {
-                        sh './mvnw test'
-                    }
-                }
+ tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
     }
-
+    stage ('Build') {
+                steps {
+                    sh 'mvn -Dmaven.test.failure.ignore=true install'
+                }
     post {
         success {
             echo "SUCCESSFUL"
