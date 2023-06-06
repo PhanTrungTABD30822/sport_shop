@@ -1,25 +1,16 @@
-pipeline {
-	agent any
+node {
+  stage("Clone the project") {
+    git branch: 'main', url: 'https://github.com/nkchauhan003/jenkins-demo.git'
+  }
 
+  stage("Compilation") {
+    sh "./mvnw clean install -DskipTests"
+  }
 
-	stages {
+  stage("Tests and Deployment") {
+    stage("Runing unit tests") {
+      sh "./mvnw test -Punit"
+    }
 
-		stage('Build'){
-			steps {
-				bat "mvn clean install -DskipTests"
-			}
-		}
-
-		stage('Test'){
-			steps{
-				bat "mvn test"
-			}
-		}
-
-		stage('Deploy') {
-			steps {
-			    bat "mvn jar:jar deploy:deploy"
-			}
-		}
-	}
+  }
 }
