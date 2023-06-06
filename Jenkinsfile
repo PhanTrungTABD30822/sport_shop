@@ -4,12 +4,12 @@ node {
   }
 
   stage("Compilation") {
-    sh "./mvnw clean install -DskipTests"
+    sh "chmod +x clean install -DskipTests"
   }
 
   stage("Tests and Deployment") {
     stage("Runing unit tests") {
-      sh "./mvnw test -Punit"
+      sh "chmod +x test -Punit"
     }
 
   }
