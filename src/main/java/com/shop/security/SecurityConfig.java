@@ -29,7 +29,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+//                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest().permitAll()
                 ) .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")

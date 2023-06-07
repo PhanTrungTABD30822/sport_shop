@@ -12,39 +12,10 @@
     <div id="main_content">
         <div th:replace="/admin/layout :: sidebar"></div>
         <div class="page">
-            <div class="main-sidebar sidebar-style-3" th:fragment="sidebar">
 
-                <div id="left-sidebar" class="sidebar" style="padding:15px 15px 20px 30px !important; ">
-                    <h5 class="brand-name">
-                        <img src="https://theme.hstatic.net/200000580329/1000937158/14/logo.png?v=85"/>
 
-                    </h5>
-                    <nav id="left-sidebar-nav" class="sidebar-nav">
-                        <ul class="metismenu">
-                            <li class="g_heading">Project</li>
-                            <li class="active">
-                                <a href="/Admin/DashBoard"><i class="fa fa-dashboard"></i><span>Trang chủ</span></a>
-                            </li>
-                            <li>
-                                <a href="/Admin/Orders"><i class="fa fa-list-ul"></i><span>Đơn hàng</span></a>
-                            </li>
-                            <li>
-                                <a href="/Admin/Categories"><i class="fa fa-list-ul"></i><span>Thể loại</span></a>
-                            </li>
-                            <li>
-                                <a href="/Admin/Products"><i class="fa fa-list-ul"></i><span>Sản phẩm</span></a>
-                            </li>
-                            <li>
-                                <a href="/Admin/Customers"><i class="fa fa-list-ul"></i><span>Khách hàng</span></a>
-                            </li>
-                            <li>
-                                <a href="project-taskboard.html"><i
-                                        class="fa fa-calendar-check-o"></i><span>Taskboard</span></a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+
+
             <div id="page_top" class="section-body top_dark">
 
                 <div th:replace="/admin/layout :: navbar_layout"></div>
@@ -57,34 +28,34 @@
                                 <div class="container-fluid">
                                     <div class="row clearfix">
                                         <div class="col-12">
-
-
                                             <h2>Sản phẩm</h2>
-
                                             <p>
-                                                @Html.ActionLink("Thêm sản phẩm", "Create")
+
+                                                <a th:href="@{/product/create}">Thêm sản phẩm</a>
                                             </p>
                                             <div class="card">
                                                 <div class="card-body">
-                                                    @using (Html.BeginForm("Index","Products",FormMethod.Post))
-                                                    {
-                                                    <div class="row">
+                                                    <form action="">
 
-                                                        <div class="col-lg-2 col-md-4 col-sm-6">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="q"
-                                                                       placeholder="Search">
+                                                        <div class="row">
+
+                                                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" name="q"
+                                                                           placeholder="Search">
+                                                                </div>
                                                             </div>
+
+                                                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                                                <button type="submit" class="btn btn-primary btn-block"
+                                                                        title="">Search
+                                                                </button>
+                                                            </div>
+
                                                         </div>
 
-                                                        <div class="col-lg-2 col-md-4 col-sm-6">
-                                                            <button type="submit" class="btn btn-primary btn-block"
-                                                                    title="">Search
-                                                            </button>
-                                                        </div>
+                                                    </form>
 
-                                                    </div>
-                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -105,26 +76,22 @@
                                                             <th>Mô tả</th>
                                                             <th>Giá</th>
                                                             <th>Tên Thể loại</th>
-
                                                             <th>Hành động</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach (var item in Model)
-                                                        {
+
                                                         <tr>
 
-                                                            <td><a href="#">#@item.id</a></td>
+                                                            <td><a href="#"></a></td>
                                                             <td><span>@item.name</span></td>
                                                             <!--                        <td><img src="/Areas/Admin/Assets/products/@item.img" style="width:100px"></td>-->
                                                             <td>
                                                                 <div style=" overflow: hidden; inline-size: 150px;">
-                                                                    @item.description
+
                                                                 </div>
                                                             </td>
-                                                            <td>@(double.Parse(item.price+"").ToString("#,###",
-                                                                System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))
-                                                                )
+                                                            <td>
                                                             </td>
 
                                                             <td><span>@item.category.name</span></td>
@@ -138,7 +105,7 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        }
+
 
                                                         </tbody>
                                                     </table>
