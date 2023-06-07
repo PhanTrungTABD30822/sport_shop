@@ -14,8 +14,6 @@
         <div class="page">
 
 
-
-
             <div id="page_top" class="section-body top_dark">
 
                 <div th:replace="/admin/layout :: navbar_layout"></div>
@@ -31,7 +29,7 @@
                                             <h2>Sản phẩm</h2>
                                             <p>
 
-                                                <a th:href="@{/product/create}">Thêm sản phẩm</a>
+                                                <a th:href="@{product/create}">Thêm sản phẩm</a>
                                             </p>
                                             <div class="card">
                                                 <div class="card-body">
@@ -81,28 +79,24 @@
                                                         </thead>
                                                         <tbody>
 
-                                                        <tr>
 
-                                                            <td><a href="#"></a></td>
-                                                            <td><span>@item.name</span></td>
-                                                            <!--                        <td><img src="/Areas/Admin/Assets/products/@item.img" style="width:100px"></td>-->
+                                                        <tr th:each="product : ${products}">
+                                                            <th th:text="${product.id}" scope="row"></th>
+                                                            <td th:text="${product.name}"></td>
+                                                            <td><img style="width:100px"
+                                                                     th:src="@{/images/__${product.img}__}" alt=""></td>
                                                             <td>
-                                                                <div style=" overflow: hidden; inline-size: 150px;">
+                                                                <div style=" overflow: hidden; inline-size: 150px;"
+                                                                     th:text="${product.description}">
 
                                                                 </div>
                                                             </td>
+                                                            <td th:text="${product.price}"></td>
+                                                            <td th:text="${product.category.name}"></td>
                                                             <td>
-                                                            </td>
-
-                                                            <td><span>@item.category.name</span></td>
-                                                            <td>
-                                                                <div> @Html.ActionLink("Edit", "Edit", new { id =
-                                                                    item.id })
-                                                                </div>
-
-                                                                <div> @Html.ActionLink("Delete", "Delete", new { id =
-                                                                    item.id })
-                                                                </div>
+                                                                <a th:href="@{product/edit/{id}(id=${product.id})}">Edit</a> |
+                                                                <a th:href="@{product/delete/{id}(id=${product.id})}"
+                                                                   onclick="return confirm('Are you sure?')">Delete</a>
                                                             </td>
                                                         </tr>
 
