@@ -14,9 +14,13 @@ public class AdminHomeController {
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping("/")
-    public String index() {
-        return "admin/home/indexAdmin";
+    @GetMapping("")
+    public String login(){
+        return "admin/login";
+    }
+    @GetMapping("/home")
+    public String homeAdmin(){
+        return "admin/home/index";
     }
 
     @GetMapping("/showForm")
