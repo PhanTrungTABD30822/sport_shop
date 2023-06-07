@@ -6,9 +6,7 @@
 </head>
 <body>
 <!--Header-->
-<div th:replace="fragments :: _header">
-</div>
-
+<div th:replace="fragments :: _header"></div>
 <!--End Header-->
 <div id="page-content">
     <!--Page Title-->
@@ -19,9 +17,7 @@
             </div>
         </div>
     </div>
-
     <!--End Page Title-->
-
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
@@ -42,7 +38,6 @@
                                     <label for="phone">Điện Thoại</label>
                                     <input type="text" name="phone" placeholder="" id="phone">
                                     <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
-
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -51,7 +46,6 @@
                                     <input type="email" name="email" placeholder="" id="email"
                                            class="" autocorrect="off" autocapitalize="off" autofocus="">
                                     <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -60,7 +54,6 @@
                                     <input type="password" value="" name="password" placeholder="" th:field="*{password}"
                                            id="password" class="">
                                     <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-
                                 </div>
                             </div>
                         </div>
@@ -85,15 +78,15 @@
 <!--End Scoll Top-->
 
 <!-- Including Jquery -->
-<script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
-<script src="assets/js/vendor/jquery.cookie.js"></script>
-<script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-<script src="assets/js/vendor/wow.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/vendor/jquery.cookie.js"></script>
+<script src="/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/assets/js/vendor/wow.min.js"></script>
 <!-- Including Javascript -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/lazysizes.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/plugins.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/lazysizes.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 </html>

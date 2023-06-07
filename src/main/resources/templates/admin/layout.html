@@ -3,7 +3,7 @@
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Ecommerce Dashboard &mdash; CodiePie</title>
+    <title>Dashboard &mdash; CodiePie</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" th:href="@{/admin/assets/modules/bootstrap/css/bootstrap.min.css}">
@@ -18,6 +18,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" th:href="@{/admin/assets/css/style.min.css}">
     <link rel="stylesheet" th:href="@{/admin/assets/css/components.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div th:fragment="navbar_layout">
@@ -57,19 +58,19 @@
                                 <div class="search-header">Result</div>
                                 <div class="search-item">
                                     <a href="#">
-                                        <img class="mr-3 rounded" width="30" src="assets/img/products/product-3-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="30" th:src="@{/admin/assets/img/products/product-3-50.png}" alt="product">
                                         oPhone 11 Pro
                                     </a>
                                 </div>
                                 <div class="search-item">
                                     <a href="#">
-                                        <img class="mr-3 rounded" width="30" src="assets/img/products/product-2-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="30" src="/admin/assets/img/products/product-2-50.png" alt="product">
                                         Drone Zx New Gen-3
                                     </a>
                                 </div>
                                 <div class="search-item">
                                     <a href="#">
-                                        <img class="mr-3 rounded" width="30" src="assets/img/products/product-1-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="30" src="/admin/assets/img/products/product-1-50.png" alt="product">
                                         Headphone JBL
                                     </a>
                                 </div>
@@ -94,13 +95,14 @@
                             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                                 <div class="dropdown-header">Messages
                                     <div class="float-right">
+
                                         <a href="#">Mark All As Read</a>
                                     </div>
                                 </div>
                                 <div class="dropdown-list-content dropdown-list-message">
                                     <a href="#" class="dropdown-item dropdown-item-unread">
                                         <div class="dropdown-item-avatar">
-                                            <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle">
+                                            <img alt="image" src="/assets/img/avatar/avatar-1.png" class="rounded-circle">
                                             <div class="is-online"></div>
                                         </div>
                                         <div class="dropdown-item-desc">
@@ -111,7 +113,7 @@
                                     </a>
                                     <a href="#" class="dropdown-item dropdown-item-unread">
                                         <div class="dropdown-item-avatar">
-                                            <img alt="image" src="assets/img/avatar/avatar-2.png" class="rounded-circle">
+                                            <img alt="image" src="/admin/assets/img/avatar/avatar-2.png" class="rounded-circle">
                                         </div>
                                         <div class="dropdown-item-desc">
                                             <b>Dedik Sugiharto</b>
@@ -121,7 +123,7 @@
                                     </a>
                                     <a href="#" class="dropdown-item dropdown-item-unread">
                                         <div class="dropdown-item-avatar">
-                                            <img alt="image" src="assets/img/avatar/avatar-3.png" class="rounded-circle">
+                                            <img alt="image" src="/admin/assets/img/avatar/avatar-3.png" class="rounded-circle">
                                             <div class="is-online"></div>
                                         </div>
                                         <div class="dropdown-item-desc">
@@ -132,7 +134,7 @@
                                     </a>
                                     <a href="#" class="dropdown-item">
                                         <div class="dropdown-item-avatar">
-                                            <img alt="image" src="assets/img/avatar/avatar-4.png" class="rounded-circle">
+                                            <img alt="image" src="/admin/assets/img/avatar/avatar-4.png" class="rounded-circle">
                                         </div>
                                         <div class="dropdown-item-desc">
                                             <b>Ardian Rahardiansyah</b>
@@ -142,7 +144,7 @@
                                     </a>
                                     <a href="#" class="dropdown-item">
                                         <div class="dropdown-item-avatar">
-                                            <img alt="image" src="assets/img/avatar/avatar-5.png" class="rounded-circle">
+                                            <img alt="image" src="/admin/assets/img/avatar/avatar-5.png" class="rounded-circle">
                                         </div>
                                         <div class="dropdown-item-desc">
                                             <b>Alfa Zulkarnain</b>
@@ -216,7 +218,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+                                <img alt="image" src="/admin/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
                                 <div class="d-sm-none d-lg-inline-block">Hi, Michelle Green</div></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-title">Logged in 5 min ago</div>
@@ -306,6 +308,9 @@
                         <!--<li><a class="nav-link" href="forms-editor.html">Editor</a></li>
                         <li><a class="nav-link" href="forms-validation.html">Validation</a></li>-->
                     </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Quản lý bình luận</span></a>
                 </li>
 <!--                <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Google Maps</span></a>
@@ -517,7 +522,7 @@
                             <div class="card-body" id="top-5-scroll">
                                 <ul class="list-unstyled list-unstyled-border">
                                     <li class="media">
-                                        <img class="mr-3 rounded" width="55" src="assets/img/products/product-3-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="55" src="admin/assets/img/products/product-3-50.png" alt="product">
                                         <div class="media-body">
                                             <div class="float-right"><div class="font-weight-600 text-muted text-small">86 Sales</div></div>
                                             <div class="media-title">oPhone S9 Limited</div>
@@ -534,7 +539,7 @@
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="mr-3 rounded" width="55" src="assets/img/products/product-4-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="55" src="/admin/assets/img/products/product-4-50.png" alt="product">
                                         <div class="media-body">
                                             <div class="float-right"><div class="font-weight-600 text-muted text-small">67 Sales</div></div>
                                             <div class="media-title">iBook Pro 2018</div>
@@ -551,7 +556,7 @@
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="mr-3 rounded" width="55" src="assets/img/products/product-1-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="55" src="/admin/assets/img/products/product-1-50.png" alt="product">
                                         <div class="media-body">
                                             <div class="float-right"><div class="font-weight-600 text-muted text-small">63 Sales</div></div>
                                             <div class="media-title">Headphone Blitz</div>
@@ -568,7 +573,7 @@
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="mr-3 rounded" width="55" src="assets/img/products/product-3-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="55" src="/admin/assets/img/products/product-3-50.png" alt="product">
                                         <div class="media-body">
                                             <div class="float-right"><div class="font-weight-600 text-muted text-small">28 Sales</div></div>
                                             <div class="media-title">oPhone X Lite</div>
@@ -585,7 +590,7 @@
                                         </div>
                                     </li>
                                     <li class="media">
-                                        <img class="mr-3 rounded" width="55" src="assets/img/products/product-5-50.png" alt="product">
+                                        <img class="mr-3 rounded" width="55" src="/admin/assets/img/products/product-5-50.png" alt="product">
                                         <div class="media-body">
                                             <div class="float-right"><div class="font-weight-600 text-muted text-small">19 Sales</div></div>
                                             <div class="media-title">Old Camera</div>
@@ -627,7 +632,7 @@
                                     <div>
                                         <div class="product-item pb-3">
                                             <div class="product-image">
-                                                <img alt="image" src="assets/img/products/product-4-50.png" class="img-fluid">
+                                                <img alt="image" src="/admin/assets/img/products/product-4-50.png" class="img-fluid">
                                             </div>
                                             <div class="product-details">
                                                 <div class="product-name">iBook Pro 2018</div>
@@ -648,7 +653,7 @@
                                     <div>
                                         <div class="product-item">
                                             <div class="product-image">
-                                                <img alt="image" src="assets/img/products/product-3-50.png" class="img-fluid">
+                                                <img alt="image" src="/admin/assets/img/products/product-3-50.png" class="img-fluid">
                                             </div>
                                             <div class="product-details">
                                                 <div class="product-name">oPhone S9 Limited</div>
@@ -669,8 +674,8 @@
                                     <div>
                                         <div class="product-item">
                                             <div class="product-image">
-                                                <img alt="image" src="assets/img/products/product-1-50.png" class="img-fluid">
                                             </div>
+                                            <img alt="image" th:src="@{/admin/assets/img/products/product-1-50.png}" class="img-fluid">
                                             <div class="product-details">
                                                 <div class="product-name">Headphone Blitz</div>
                                                 <div class="product-review">
@@ -880,7 +885,7 @@
     <div th:fragment="layout_footer">
         <footer class="main-footer">
             <div class="footer-left">
-                <div class="bullet"></div>  <a href="templateshub.net">Templates Hub</a>
+                <a th:href="@{https://www.facebook.com/hieunghiahutech/}">Hieu Nghia</a>
             </div>
             <div class="footer-right">
             </div>
