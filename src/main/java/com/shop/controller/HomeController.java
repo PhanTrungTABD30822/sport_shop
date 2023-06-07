@@ -5,6 +5,7 @@ import com.shop.entities.Customer;
 import com.shop.entities.Product;
 import com.shop.repositories.ProductRepository;
 import com.shop.service.CustomerService;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,13 @@ public class HomeController {
         System.out.println(customer);
         customerService.save(customer);
         return "redirect:/login";
+    }
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request, Principal principal) throws ServletException {
+        if (principal != null) {
+            request.logout();
+        }
+        return "redirect:/";
     }
 
     @GetMapping("about")

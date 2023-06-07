@@ -25,6 +25,7 @@ public class ProductController {
     private ProductRepository productRepository;
     @Autowired
     private CustomerRepository customerRepository;
+
     @GetMapping("/product")
     public String index() {
         return "product/index";
@@ -40,7 +41,7 @@ public class ProductController {
             model.addAttribute("listComments", listComments);
             model.addAttribute("comment", new Comment());
             return "product/index";
-        }else{
+        } else {
             return "home/index";
         }
 
