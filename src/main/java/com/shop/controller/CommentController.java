@@ -96,7 +96,8 @@ public class CommentController {
     @GetMapping("product/edit/{productId}")
     public String showFormUpdateComment(Model model,
                                         @PathVariable Integer productId,
-                                        @RequestParam Integer commentId, Principal principal, RedirectAttributes redirectAttributes) {
+                                        @RequestParam Integer commentId,
+                                        Principal principal, RedirectAttributes redirectAttributes) {
         System.out.println("Log product id" + productId);
         if (principal == null) {
 //            redirectAttributes.addAttribute("returnUrl", "/product/" + productId);
@@ -176,10 +177,6 @@ public class CommentController {
         return "redirect:/product/{productId}";
     }
 
-    @PostMapping("/admin/deleteComment/{idComment}")
-    public String deleteCommentByAdmin(@PathVariable Integer idComment) {
-        this.commentRepository.deleteById(idComment);
-        return "admin/commentManagement";
-    }
+
 }
 

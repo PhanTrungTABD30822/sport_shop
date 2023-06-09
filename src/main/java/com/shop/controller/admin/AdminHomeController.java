@@ -23,15 +23,10 @@ public class AdminHomeController {
         return "admin/home/index";
     }
 
-    @GetMapping("/showForm")
-    public String showForm() {
-        return "admin/home/Form";
-    }
 
     @GetMapping("/commentManagement")
     public String commentManagement(Model model) {
         model.addAttribute("listComments", commentRepository.findAll());
         return "admin/commentManagement";
     }
-
 }

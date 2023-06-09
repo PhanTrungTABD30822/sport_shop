@@ -20,7 +20,7 @@ public class Comment  implements Serializable {
     private String content;
     private Integer star;
     @ManyToOne()
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = true, foreignKey = @ForeignKey(name = "fk_comment_customer"))
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Customer customer;
