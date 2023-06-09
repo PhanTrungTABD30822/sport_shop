@@ -8,8 +8,11 @@ import com.shop.repositories.CustomerRepository;
 import com.shop.repositories.ProductRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,9 +26,8 @@ public class AdminCustomerController {
 
     @GetMapping("/create")
     public String create(Model model) {
-
-        model.addAttribute("customer", new Customer());
-
+        Customer customer = new Customer();
+        model.addAttribute("customer", customer);
         return "admin/customer/create";
     }
 
@@ -53,8 +55,16 @@ public class AdminCustomerController {
     }
 
     @PostMapping("/edit/{idCustomer}")
-    public String editCommentByAdmin(@PathVariable Integer idCustomer, @ModelAttribute("customer") Customer updateCustomer, Principal principal, RedirectAttributes redirectAttributes) {
+    public String editCommentByAdmin(@PathVariable Integer idCustomer, @ModelAttribute("customer") Customer updateCustomer, Principal principal, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid customer id"));
+        if (!customer.getEmail().equals(updateCustomer.getEmail()) && customerRepository.existsByEmail(updateCustomer.getEmail())) {
+            bindingResult.rejectValue("email", "duplicate", "Email đã tồn tại trong database, vui lòng nhập email khác");
+            return "/admin/customer/edit";
+        }
+        if (!customer.getPhone().equals(updateCustomer.getPhone()) && customerRepository.existsByPhone(updateCustomer.getPhone())) {
+            bindingResult.rejectValue("phone", "duplicatePhone", "Số điện thoại đã tồn tại trong database, vui lòng nhập số điện thoại khác");
+            return "/admin/customer/edit";
+        }
         customer.setEmail(updateCustomer.getEmail());
         customer.setName(updateCustomer.getName());
         customer.setGender(updateCustomer.getGender());
@@ -65,4 +75,23 @@ public class AdminCustomerController {
     }
 
 
+    @PostMapping("/create")
+    public String createUser(@ModelAttribute("customer") Customer customer, BindingResult result) {
+        if (customerRepository.existsByEmail(customer.getEmail())) {
+            result.rejectValue("email", "duplicate", "Email đã tồn tại trong database, vui lòng nhập email khác");
+            return "admin/customer/create";
+        }
+        if (customerRepository.existsByPhone(customer.getPhone())) {
+            result.rejectValue("phone", "duplicate", "Số diện thọại đã tồn tại trong database, vui lòng nhập số điện thoại khác");
+            return "admin/customer/create";
+        }
+        if (!customer.getPhone().matches("\\d+")) {
+            result.rejectValue("phone", "invalid", "Số điện thoại chỉ được chứa số");
+            return "admin/customer/create";
+        }
+        String hashedPassword = BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt());
+        customer.setPassword(hashedPassword);
+        customerRepository.save(customer);
+        return "redirect:/admin/customer";
+    }
 }
