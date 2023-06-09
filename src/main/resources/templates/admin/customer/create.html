@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/layout :: head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div>
+    <!-- Start main left sidebar menu -->
+    <div id="main_content">
+        <div th:replace="~{/admin/layout :: sidebar}"></div>
+        <div class="page">
+
+            <div id="page_top" class="section-body top_dark">
+
+                <div th:replace="~{/admin/layout :: navbar_layout}"></div>
+            </div>
+            <div class="section-body mt-3">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+
+
+                        <div class="col-12">
+
+
+                            <form th:action="@{create}" th:object="${customer}" method="POST"
+                                  enctype="multipart/form-data">
+                                <div class="form-horizontal">
+                                    <h4> Thêm người dùng</h4>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Email</label>
+                                        <div class="col-sm-3">
+                                            <input type="email" class="form-control" th:field="*{email}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Tên</label>
+                                        <div class="col-sm-3">
+                                            <input type="email" class="form-control" th:field="*{name}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Số điện thoại</label>
+                                        <div class="col-sm-3">
+                                            <input type="email" class="form-control" th:field="*{email}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Mật khẩu</label>
+                                        <div class="col-sm-3">
+                                            <input type="password" class="form-control" th:field="*{email}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-3">Giới tính</label>
+                                        <div class="col-sm-2">
+                                            <select th:field="*{gender}" name="role" class="form-control">
+                                                <option value="1">Nam</option>
+                                                <option value="0">Nữ</option>
+                                                <option value="2">Khác</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Vai trò</label>
+                                        <div class="col-sm-2">
+                                            <select th:field="*{role}" name="role" class="form-control">
+                                                <option value="1">ADMIN</option>
+                                                <option value="0">USER</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Thêm" class="btn btn-default"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div>
+                                <a href="">Trở về trang trước</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div th:replace="/admin/layout :: layout_footer"></div>
+        </div>
+        <!--    Footer Layout-->
+    </div>
+</div>
+
+
+<div th:replace="/admin/layout :: js_script_layout"></div>
+</body>
+</html>
