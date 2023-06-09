@@ -38,6 +38,9 @@
                                         <div class="col-md-10">
                                             <input type="email" th:field="*{email}" class="form-control">
                                         </div>
+                                        <div th:if="${#fields.hasErrors('email')}" class="error-message">
+                                            <span style="color: red" class="text-center" th:errors="*{email}"></span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">Tên</label>
@@ -50,6 +53,9 @@
                                         <div class="col-md-10">
                                             <input th:field="*{phone}" class="form-control">
                                         </div>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('phone')}" class="error-message">
+                                        <span style="color: red" class="text-center" th:errors="*{phone}"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">Giới tính</label>

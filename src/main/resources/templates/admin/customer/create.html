@@ -37,54 +37,68 @@
                                             <input type="email" class="form-control" th:field="*{email}">
                                         </div>
                                     </div>
+                                    <div th:if="${#fields.hasErrors('email')}" class="error-message">
+                                        <span style="color: red" class="text-center" th:errors="*{email}"></span>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">Tên</label>
                                         <div class="col-sm-3">
-                                            <input type="email" class="form-control" th:field="*{name}">
+                                            <input type="text" class="form-control" th:field="*{name}">
                                         </div>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('name')}" class="error-message">
+                                        <span style="color: red" class="text-center" th:errors="*{name}"></span>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">Số điện thoại</label>
                                         <div class="col-sm-3">
-                                            <input type="email" class="form-control" th:field="*{email}">
+                                            <input required type="text" class="form-control" th:field="*{phone}">
+                                        </div>
+                                        <div th:if="${#fields.hasErrors('phone')}" class="error-message">
+                                            <span style="color: red" class="text-center" th:errors="*{phone}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">Mật khẩu</label>
                                         <div class="col-sm-3">
-                                            <input type="password" class="form-control" th:field="*{email}">
+                                            <input required type="password" id="passwordInput" class="form-control"
+                                                   th:field="*{password}">
+                                            <input type="checkbox" onclick="handle()"> Hiển thị mật khẩu
+                                        </div>
+                                        <div th:if="${#fields.hasErrors('password')}" class="error-message">
+                                            <span style="color: red" class="text-center" th:errors="*{password}"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-3">Giới tính</label>
                                         <div class="col-sm-2">
-                                            <select th:field="*{gender}" name="role" class="form-control">
+                                            <select required th:field="*{gender}" name="role" class="form-control">
                                                 <option value="1">Nam</option>
                                                 <option value="0">Nữ</option>
                                                 <option value="2">Khác</option>
                                             </select>
                                         </div>
+                                        <div th:if="${#fields.hasErrors('gender')}" class="error-message">
+                                            <span style="color: red" class="text-center" th:errors="*{gender}"></span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-2">Vai trò</label>
                                         <div class="col-sm-2">
-                                            <select th:field="*{role}" name="role" class="form-control">
-                                                <option value="1">ADMIN</option>
-                                                <option value="0">USER</option>
+                                            <select required th:field="*{role}" name="role" class="form-control">
+                                                <option value="ADMIN">ADMIN</option>
+                                                <option value="USER">USER</option>
                                             </select>
+                                            <div th:if="${#fields.hasErrors('role')}" class="error-message">
+                                            <span style="color: red" class="text-center" th:errors="*{role}"></span>
+                                        </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Thêm" class="btn btn-default"/>
-                                        </div>
-                                    </div>
+                                    <button type="submit" name="btnAdd" class="btn btn-primary">Thêm</button>
                                 </div>
-
                             </form>
                             <div>
-                                <a href="">Trở về trang trước</a>
+                                <a th:href="@{/admin/customer}">Trở về trang trước</a>
                             </div>
 
                         </div>
@@ -92,13 +106,21 @@
                     </div>
                 </div>
             </div>
-            <div th:replace="/admin/layout :: layout_footer"></div>
+            <div th:replace="~{/admin/layout :: layout_footer}"></div>
         </div>
         <!--    Footer Layout-->
     </div>
 </div>
-
-
-<div th:replace="/admin/layout :: js_script_layout"></div>
+<script>
+    function handle() {
+        var x = document.getElementById("passwordInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+<div th:replace="~{/admin/layout :: js_script_layout}"></div>
 </body>
 </html>

@@ -1529,7 +1529,7 @@
                 </form>
                 <form method="POST" th:action="@{/product/removeComment/{productId}(productId=${productId})}">
                     <input type="hidden" name="commentId" th:value="${comment.id}">
-                    <button class="btn btn-primary">Xóa bình luận</button>
+                    <button class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này?');">Xóa bình luận</button>
                 </form>
             </div>
         </div>
