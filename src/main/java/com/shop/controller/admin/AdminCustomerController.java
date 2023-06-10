@@ -50,7 +50,7 @@ public class AdminCustomerController {
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
-                    .toList();
+                            .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "admin/customer/index";
