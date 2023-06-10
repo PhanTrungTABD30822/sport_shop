@@ -9,11 +9,13 @@ import com.shop.repositories.CommentRepository;
 import com.shop.repositories.CustomerRepository;
 import com.shop.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +35,8 @@ public class ProductController {
 
     @GetMapping("/product/{productId}")
     public String getDetailIdProduct(@PathVariable("productId") Integer productId, Model model) {
-        Product product = productRepository.findById(productId).orElse(null);
+        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Invalid product id"));
+
         if (product != null) {
             model.addAttribute("product", product);
             List<Comment> listComments = commentRepository.findAllByProductId(productId);
@@ -44,6 +47,5 @@ public class ProductController {
         } else {
             return "home/index";
         }
-
     }
 }

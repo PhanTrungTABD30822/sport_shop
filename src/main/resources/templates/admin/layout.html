@@ -76,8 +76,8 @@
 
                     <div class="dropdown d-flex">
                         <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2"
-                           data-toggle="dropdown">
-                            Xin chào @Session["NameAdmin"]
+                           th:href="@{/admin}"
+                           th:text="${session.name} ?: 'Đăng nhập'" >
                         </a>
 
                     </div>

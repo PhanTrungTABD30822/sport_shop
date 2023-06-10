@@ -29,10 +29,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/admin/product/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/admin/category/**").hasAnyAuthority("ADMIN")
+
                         .anyRequest().permitAll()
                 ) .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
+
+                        .defaultSuccessUrl("/default")
+                        .permitAll()
+                )
+                .formLogin(formLogin -> formLogin.loginPage("/admin")
+                        .loginProcessingUrl("/admin")
                         .defaultSuccessUrl("/default")
                         .permitAll()
                 )
