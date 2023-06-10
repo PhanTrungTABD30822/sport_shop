@@ -59,6 +59,7 @@ public class CommentController {
     @ResponseBody
     @PostMapping("/api/comment")
     public String createComment(HttpServletRequest httpServletRequest, Principal principal, RedirectAttributes redirectAttributes) {
+
         if (principal == null) {
             redirectAttributes.addFlashAttribute("returnPage", "/product/" + httpServletRequest.getParameter("productId"));
             return "redirect:/login";
@@ -98,7 +99,7 @@ public class CommentController {
                                         @PathVariable Integer productId,
                                         @RequestParam Integer commentId,
                                         Principal principal, RedirectAttributes redirectAttributes) {
-        System.out.println("Log product id" + productId);
+        System.out.println("Log product id" + principal);
         if (principal == null) {
 //            redirectAttributes.addAttribute("returnUrl", "/product/" + productId);
             redirectAttributes.addFlashAttribute("returnUrl", "/product/" + productId);

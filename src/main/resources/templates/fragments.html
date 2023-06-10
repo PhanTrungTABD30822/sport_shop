@@ -66,8 +66,10 @@
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                                                      aria-hidden="true"></i></span>
                         <ul class="customer-links list-inline">
-                            <a th:href="@{/login}">Dang nhap</a>
-                            <li><a th:href="@{/register}">Tạo tài khoản</a></li>
+                            <a th:if="${session.name}" th:text="${session.name}"></a>
+                            <a  th:unless="${session.name}" th:href="@{/login}" >Đăng nhập</a>
+                            <li><a th:if="${session.name}" th:href="@{/logout}">Đăng xuất</a></li>
+                            <li><a  th:unless="${session.name}" th:href="@{/register}">Tạo tài khoản</a></li>
                         </ul>
                     </div>
                 </div>
