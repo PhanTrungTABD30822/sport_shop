@@ -3,11 +3,16 @@ package com.shop.controller;
 import com.shop.common.UserRole;
 import com.shop.entities.Customer;
 import com.shop.entities.Product;
+import com.shop.repositories.CustomerRepository;
 import com.shop.repositories.ProductRepository;
 import com.shop.service.CustomerService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,16 +24,43 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+import java.util.Objects;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
     @Autowired
     private CustomerService customerService;
     @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
     private ProductRepository productRepository;
 
+
+    @RequestMapping("/default")
+    public String defaultAfterLogin(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String firstAuthority = Objects.requireNonNull(authentication.getAuthorities().stream().findFirst().orElse(null)).toString();
+        Customer customer = customerRepository.findByEmail(authentication.getName());
+        if (firstAuthority.equals("ADMIN")) {
+            session.setAttribute("name_admin", customer.getName());
+            session.setAttribute("id_admin", customer.getId());
+            session.setAttribute("role_admin", customer.getRole());
+
+            return "redirect:/admin/home";
+        }
+        session.setAttribute("name", customer.getName());
+        session.setAttribute("id", customer.getId());
+        session.setAttribute("role", customer.getRole());
+        return "redirect:/";
+    }
+
     @GetMapping
-    public String home(Model model) {
+    public String home(Model model, HttpSession httpSession) {
+        System.out.println(httpSession.getAttribute("test"));
         model.addAttribute("products", productRepository.findAll());
         return "home/index";
     }
@@ -59,6 +91,14 @@ public class HomeController {
         System.out.println(customer);
         customerService.save(customer);
         return "redirect:/login";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request, Principal principal) throws ServletException {
+        if (principal != null) {
+            request.logout();
+        }
+        return "redirect:/";
     }
 
     @GetMapping("about")

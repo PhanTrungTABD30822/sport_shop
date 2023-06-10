@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Belle Multipurpose Bootstrap 4 Html Template</title>
+    <title>Football Shopping</title>
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -39,23 +39,23 @@
                 <div class="row">
                     <div class="col-10 col-sm-8 col-md-5 col-lg-4">
                         <div class="currency-picker">
-                            <span class="selected-currency">USD</span>
-                            <ul id="currencies">
-                                <li data-currency="INR" class="">INR</li>
-                                <li data-currency="GBP" class="">GBP</li>
-                                <li data-currency="CAD" class="">CAD</li>
-                                <li data-currency="USD" class="selected">USD</li>
-                                <li data-currency="AUD" class="">AUD</li>
-                                <li data-currency="EUR" class="">EUR</li>
-                                <li data-currency="JPY" class="">JPY</li>
-                            </ul>
+                            <span class="selected-currency">VND</span>
+<!--                            <ul id="currencies">-->
+<!--                                <li data-currency="INR" class="">INR</li>-->
+<!--                                <li data-currency="GBP" class="">GBP</li>-->
+<!--                                <li data-currency="CAD" class="">CAD</li>-->
+<!--                                <li data-currency="USD" class="selected">USD</li>-->
+<!--                                <li data-currency="AUD" class="">AUD</li>-->
+<!--                                <li data-currency="EUR" class="">EUR</li>-->
+<!--                                <li data-currency="JPY" class="">JPY</li>-->
+<!--                            </ul>-->
                         </div>
                         <div class="language-dropdown">
-                            <span class="language-dd">English</span>
-                            <ul id="language">
-                                <li class="">German</li>
-                                <li class="">French</li>
-                            </ul>
+                            <span class="language-dd">Vietnamese</span>
+<!--                            <ul id="language">-->
+<!--                                <li class="">German</li>-->
+<!--                                <li class="">French</li>-->
+<!--                            </ul>-->
                         </div>
                         <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
                     </div>
@@ -66,9 +66,10 @@
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                                                      aria-hidden="true"></i></span>
                         <ul class="customer-links list-inline">
-                            <li><a href="login">Login</a></li>
-                            <li><a href="register">Create Account</a></li>
-                            <li><a href="#">Wishlist</a></li>
+                            <a th:if="${session.name}" th:text="${session.name}"></a>
+                            <a  th:unless="${session.name}" th:href="@{/login}" >Đăng nhập</a>
+                            <li><a th:if="${session.name}" th:href="@{/logout}">Đăng xuất</a></li>
+                            <li><a  th:unless="${session.name}" th:href="@{/register}">Tạo tài khoản</a></li>
                         </ul>
                     </div>
                 </div>
@@ -98,7 +99,7 @@
                         <!--Desktop Menu-->
                         <nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1 parent megamenu"><a href="/">Home <i
+                                <li class="lvl1 parent megamenu"><a href="/">Trang chủ <i
                                         class="anm anm-angle-down-l"></i></a>
                                     <!--                                    <div class="megamenu style1">
                                                                             <ul class="grid mmWrapper">
@@ -192,7 +193,7 @@
                                                                             </ul>
                                                                         </div>-->
                                 </li>
-                                <li class="lvl1 parent megamenu"><a href="shop">Shop <i
+                                <li class="lvl1 parent megamenu"><a th:href="@{/shop}">Cửa hàng <i
                                         class="anm anm-angle-down-l"></i></a>
                                     <!--                                    <div class="megamenu style4">
                                                                             <ul class="grid grid&#45;&#45;uniform mmWrapper">
@@ -257,7 +258,7 @@
                                                                             </ul>
                                                                         </div>-->
                                 </li>
-                                <li class="lvl1 parent megamenu"><a href="product">Product <i
+                                <li class="lvl1 parent megamenu"><a href="#">Sản phẩm <i
                                         class="anm anm-angle-down-l"></i></a>
                                     <!--                                        <div class="megamenu style2">-->
                                     <!--                                            <ul class="grid mmWrapper">-->
@@ -309,9 +310,9 @@
                                     <!--                                            </ul>-->
                                     <!--                                        </div>-->
                                 </li>
-                                <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent dropdown"><a href="#">Trang <i class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        <li><a href="/cart" class="site-nav">Cart Page </i></a>
+                                        <li><a href="/cart" class="site-nav">Giỏ hàng </i></a>
                                             <!--                                                <ul class="dropdown">
                                                                                                 <li><a href="cart-variant1.html" class="site-nav">Cart Variant1</a></li>
                                                                                                 <li><a href="cart-variant2.html" class="site-nav">Cart Variant2</a></li>
@@ -324,9 +325,9 @@
                                               </ul>
                                           </li>-->
                                         <li><a href="/cart/checkout" class="site-nav">Checkout</a></li>
-                                        <li><a href="about" class="site-nav">About Us <span
+                                        <li><a href="about" class="site-nav">Về chúng tôi <span
                                                 class="lbl nm_label1">New</span> </a></li>
-                                        <li><a href="contact" class="site-nav">Contact Us</a></li>
+                                        <li><a href="contact" class="site-nav">Liên hệ với chúng tôi</a></li>
                                         <!--   <li><a href="faqs.html" class="site-nav">FAQs</a></li>-->
                                         <!--<li><a href="lookbook1.html" class="site-nav">Lookbook<i
                                                 class="anm anm-angle-right-l"></i></a>
@@ -599,7 +600,7 @@
                                 class="lbl nm_label1">New</span></a></li>
                     </ul>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="#">Blog <i class="anm anm-plus-l"></i></a>
+                <li class="lvl1 parent megamenu"><a href="#">Tin tức <i class="anm anm-plus-l"></i></a>
                     <ul>
                         <li><a href="#" class="site-nav">Left Sidebar</a></li>
                         <li><a href="#" class="site-nav">Right Sidebar</a></li>
@@ -633,7 +634,7 @@
                         <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                             <h4 class="h4">Thông tin</h4>
                             <ul>
-                                <li><a href=@Url.Action("AboutUs","Page")>Về Chúng Tôi</a></li>
+                                <li><a th:href="@{/about}">Về Chúng Tôi</a></li>
                                 <li><a href="#">My Account</a></li>
                             </ul>
                         </div>
@@ -648,8 +649,8 @@
                             <h4 class="h4">Liên Hệ Với Chúng Tôi</h4>
                             <ul class="addressFooter">
                                 <li><i class="icon anm anm-map-marker-al"></i><p>Khu Công Nghệ Cao<br>Số 69 Đường Phan Trung</p></li>
-                                <li class="phone"><i class="icon anm anm-phone-s"></i><p>0968888111</p></li>
-                                <li class="email"><i class="icon anm anm-envelope-l"></i><p>caiweblo@gmail.com</p></li>
+                                <li class="phone"><i class="icon anm anm-phone-s"></i><p>+84 399864429</p></li>
+                                <li class="email"><i class="icon anm anm-envelope-l"></i><p>lehieunghia2402@gmail.com</p></li>
                             </ul>
                         </div>
                     </div>
@@ -679,4 +680,17 @@
     </footer>
 </div>
 </body>
+<script>
+    var loggedIn = false;
+    if (principal == null) {
+        loggedIn = true;
+    }
+    if (loggedIn) {
+        document.getElementById("loginBtn").style.display = "none";
+        document.getElementById("logoutBtn").style.display = "block";
+    } else {
+        document.getElementById("loginBtn").style.display = "block";
+        document.getElementById("logoutBtn").style.display = "none";
+    }
+</script>
 </html>
