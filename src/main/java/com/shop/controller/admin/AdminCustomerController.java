@@ -8,6 +8,9 @@ import com.shop.repositories.CustomerRepository;
 import com.shop.repositories.ProductRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.CompletionException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin/customer")
@@ -32,8 +40,19 @@ public class AdminCustomerController {
     }
 
     @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("listCustomers", customerRepository.findAll());
+    public String index(Model model,
+                        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                        @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Customer> customers = customerRepository.findAll(pageable);
+        model.addAttribute("listCustomers",customers);
+        int totalPages = customers.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .toList();
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         return "admin/customer/index";
     }
 
