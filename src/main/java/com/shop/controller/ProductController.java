@@ -26,7 +26,8 @@ public class ProductController {
     @Autowired
     private CustomerRepository customerRepository;
     @GetMapping("/product")
-    public String index() {
+    public String index(Model model) {
+
         return "product/index";
     }
 
@@ -35,6 +36,7 @@ public class ProductController {
         Product product = productRepository.findById(productId).orElse(null);
         if (product != null) {
             model.addAttribute("product", product);
+            model.addAttribute("products", productRepository.findAll());
             List<Comment> listComments = commentRepository.findAllByProductId(productId);
             System.out.println(listComments);
             model.addAttribute("listComments", listComments);
