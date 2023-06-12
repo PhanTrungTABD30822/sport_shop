@@ -13,7 +13,7 @@
   <!--Page Title-->
   <div class="page section-header text-center">
     <div class="page-title">
-      <div class="wrapper"><h1 class="page-width">Your cart</h1></div>
+      <div class="wrapper"><h1 class="page-width">Giỏ hàng</h1></div>
     </div>
   </div>
   <!--End Page Title-->
@@ -58,7 +58,7 @@
                 <div><span class="money" th:text="${item.price}*${item.quantity}" ></span></div>
               </td>
               <td><a th:href="@{/shoppingcart/remove/{id}(id=${item.productId})}"
-                     class="btn btn-primary">Remove</a></td>
+                     class="btn btn-primary">Xóa</a></td>
             </tr>
             </tbody>
             <tfoot>
@@ -77,7 +77,7 @@
       <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
         <div class="cart-note">
           <div class="solid-border">
-            <h5><label for="CartSpecialInstructions" class="cart-note__label small--text-center">Add a note to your order</label></h5>
+            <h5><label for="CartSpecialInstructions" class="cart-note__label small--text-center">Thêm ghi chú trước khi thanh toán</label></h5>
             <textarea name="note" id="CartSpecialInstructions" class="cart-note__input"></textarea>
           </div>
         </div>
@@ -86,11 +86,11 @@
             <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Thành tiền</strong></span>
             <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" th:text="${total_amount}"></span></span>
           </div>
-          <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+          <div class="cart__shipping">Vận chuyển &amp; và thuế trước khi thanh toán</div>
           <p class="cart_tearm">
             <label>
               <input type="checkbox" name="tearm" id="cartTearm" class="checkbox" value="tearm" required="">
-              I agree with the terms and conditions</label>
+              Tôi đồng ý với các điều khoản và điều kiện</label>
           </p>
           <a href="@{/cart/checkout}" type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Đặt hàng">Đặt hàng</a>
           <div class="paymnet-img"><img src="/assets/images/payment-img.jpg" alt="Payment"></div>
