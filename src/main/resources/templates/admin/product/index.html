@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/admin/layout :: head">
+<head th:replace="~{/admin/layout :: head}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -8,15 +8,14 @@
 
 
 <div>
-    <!-- Start main left sidebar menu -->
     <div id="main_content">
-        <div th:replace="/admin/layout :: sidebar"></div>
+        <div th:replace="~{/admin/layout :: sidebar}"></div>
         <div class="page">
 
 
             <div id="page_top" class="section-body top_dark">
 
-                <div th:replace="/admin/layout :: navbar_layout"></div>
+                <div th:replace="~{/admin/layout :: navbar_layout}"></div>
             </div>
             <div class="section-body mt-3">
                 <div class="container-fluid">

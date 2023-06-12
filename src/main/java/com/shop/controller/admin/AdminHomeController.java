@@ -23,10 +23,4 @@ public class AdminHomeController {
         return "admin/home/index";
     }
 
-
-    @GetMapping("/commentManagement")
-    public String commentManagement(Model model) {
-        model.addAttribute("listComments", commentRepository.findAll());
-        return "admin/commentManagement";
-    }
 }

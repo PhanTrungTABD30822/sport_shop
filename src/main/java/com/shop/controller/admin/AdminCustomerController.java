@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletionException;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -42,48 +44,83 @@ public class AdminCustomerController {
     @GetMapping("")
     public String index(Model model,
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                        @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
-        Page<Customer> customers = customerRepository.findAll(pageable);
+                        @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+                        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+                        @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
+                        @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir) {
+        Sort.Direction direction = Sort.Direction.fromString(sortDir);
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<Customer> customers;
+        if(!keyword.isEmpty())
+        {
+            customers = customerRepository.findAll(pageable);
+        }else
+        {
+            customers = customerRepository.findByNameContainsIgnoreCase(keyword, pageable);
+        }
         model.addAttribute("listCustomers",customers);
         int totalPages = customers.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
-                    .toList();
+                    .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "admin/customer/index";
     }
-
     @GetMapping("/delete/{idCustomer}")
     public String deleteCustomerByAdmin(@PathVariable("idCustomer") Integer idCustomer) {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid customer id"));
         customerRepository.delete(customer);
         return "redirect:/admin/customer";
     }
-
     @GetMapping("/edit/{idCustomer}")
     public String showForm(Model model,
-                           @PathVariable Integer idCustomer,
-                           Principal principal,
-                           RedirectAttributes redirectAttributes) {
+                   @PathVariable Integer idCustomer,
+                   Principal principal,
+                   RedirectAttributes redirectAttributes) {
+        if(principal.getName() == null)
+        {
+            throw new RuntimeException("Please login");
+        }
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid id customer"));
         model.addAttribute("customer", customer);
         return "/admin/customer/edit";
     }
 
     @PostMapping("/edit/{idCustomer}")
-    public String editCommentByAdmin(@PathVariable Integer idCustomer, @ModelAttribute("customer") Customer updateCustomer, Principal principal, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+    public String editCustomerById(@PathVariable Integer idCustomer,
+                                   @ModelAttribute("customer") Customer updateCustomer,
+                                   Principal principal,
+                                   RedirectAttributes redirectAttributes,
+                                   BindingResult bindingResult) {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid customer id"));
+        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        String phonePattern = "^\\d+$";
+        if(principal.getName() == null)
+        {
+            throw new RuntimeException("Vui lòng đăng nhập tài khoản có quyền là Admin");
+        }
+        //Check trùng
         if (!customer.getEmail().equals(updateCustomer.getEmail()) && customerRepository.existsByEmail(updateCustomer.getEmail())) {
             bindingResult.rejectValue("email", "duplicate", "Email đã tồn tại trong database, vui lòng nhập email khác");
             return "/admin/customer/edit";
         }
-        if (!customer.getPhone().equals(updateCustomer.getPhone()) && customerRepository.existsByPhone(updateCustomer.getPhone())) {
-            bindingResult.rejectValue("phone", "duplicatePhone", "Số điện thoại đã tồn tại trong database, vui lòng nhập số điện thoại khác");
+        //Kiểm tran email đúng định dạng
+        if(!Pattern.matches(emailPattern, updateCustomer.getEmail())){
+            bindingResult.rejectValue("email", "invalid", "Email không đúng định dạng, vui lòng thử lại email khác");
             return "/admin/customer/edit";
         }
+        if (!Pattern.matches(phonePattern, updateCustomer.getPhone())) {
+            bindingResult.rejectValue("phone", "invalid", "Số điện thoại không hợp lệ, vui lòng nhập số điện thoại khác");
+            return "/admin/customer/edit";
+        }
+        if (!customer.getPhone().equals(updateCustomer.getPhone()) && customerRepository.existsByPhone(updateCustomer.getPhone())) {
+            bindingResult.rejectValue("phone", "duplicate", "Số điện thoại đã tồn tại trong database, vui lòng nhập số điện thoại khác");
+            return "/admin/customer/edit";
+        }
+
         customer.setEmail(updateCustomer.getEmail());
         customer.setName(updateCustomer.getName());
         customer.setGender(updateCustomer.getGender());

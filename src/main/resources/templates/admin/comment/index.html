@@ -56,7 +56,10 @@
                                                     <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                                         <thead>
                                                         <tr>
-                                                            <th>ID</th>
+                                                            <th>
+                                                                    <a  href="?sortBy=id&amp;sortDir=asc">ID ▲</a>
+                                                                    <a href="?sortBy=id&amp;sortDir=desc">ID ▼</a>
+                                                            </th>
                                                             <th>Tên người dùng</th>
                                                             <th>Nội dung</th>
                                                             <th>Lượt đánh giá</th>
@@ -74,13 +77,35 @@
                                                             <td th:text="${comment.getProduct().getId()}"></td>
                                                             <td th:text="${comment.getProduct().getName()}"></td>
                                                             <td>
-                                                            <a class="btn btn-primary"
-                                                               th:href="@{/admin/comment/delete/comment/{idComment}(idComment=${comment.id})}"
-                                                               onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này?')">Xóa</a>
+                                                                <a class="btn btn-primary"
+                                                                   th:href="@{/admin/comment/delete/comment/{idComment}(idComment=${comment.id})}"
+                                                                   onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này?')">Xóa</a>
                                                             </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul class="pagination">
+                                                            <li class="page-item pagination"
+                                                                th:if="${listComments.totalPages > 0}"
+                                                                th:each="pageNumber : ${pageNumbers}">
+                                                                <a class="page-link"
+                                                                   th:href="@{/admin/comment(page=${pageNumber},size=${listComments.size})}"
+                                                                   th:classappend="${pageNumber==listComments.number + 1} ? active"
+                                                                   th:text="${pageNumber}"
+                                                                ></a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                    <div class="mb-3">
+                                                        <label for="size_option" class="form-label">Số lượng mỗi trang</label><br>
+                                                        <select class="form-select" name="size" id="size_option" onchange="getval(this);">
+                                                            <option selected value="0">Select row</option>
+                                                            <option value="5">5</option>
+                                                            <option value="10">10</option>
+                                                            <option value="15">15</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,6 +116,11 @@
                     </div>
                 </div>
             </div>
+            <script>
+                function getval(sel) {
+                    window.location.replace("http://localhost:8002/admin/comment?page=1&size=" + sel.value);
+                }
+            </script>
             <div th:replace="~{/admin/layout :: layout_footer}"></div>
         </div>
         <!--    Footer Layout-->

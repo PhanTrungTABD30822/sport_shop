@@ -42,14 +42,10 @@
 </style>
 <body>
 <div>
-    <!-- Start main left sidebar menu -->
     <div id="main_content">
         <div th:replace="~{/admin/layout :: sidebar}"></div>
         <div class="page">
-
-
             <div id="page_top" class="section-body top_dark">
-
                 <div th:replace="~{/admin/layout :: navbar_layout}"></div>
             </div>
             <div class="section-body mt-3">
@@ -73,7 +69,6 @@
                                                                            placeholder="Search">
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-lg-2 col-md-4 col-sm-6">
                                                                 <button style="background-color: #9999ff" type="submit"
                                                                         class="btn btn-primary btn-block"
@@ -98,9 +93,15 @@
                                                     <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                                         <thead>
                                                         <tr class="title">
-                                                            <th style="font-weight: bold">#</th>
+                                                           <th>
+                                                               <a  href="?sortBy=id&amp;sortDir=asc">ID ▲</a>
+                                                               <a href="?sortBy=id&amp;sortDir=desc">ID ▼</a>
+                                                           </th>
                                                             <th style="font-weight: bold">Email</th>
-                                                            <th style="font-weight: bold">Họ tên</th>
+                                                            <th style="font-weight: bold">
+                                                                <a  href="?sortBy=name&amp;sortDir=asc">Tên người dùng ▲</a>
+                                                                <a href="?sortBy=name&amp;sortDir=desc">Tên người dùng ▼</a>
+                                                            </th>
                                                             <th style="font-weight: bold">Số điện thoại</th>
                                                             <th style="font-weight: bold">Giới tính</th>
                                                             <th style="font-weight: bold">Vai trò</th>
@@ -116,7 +117,7 @@
                                                             <td>
                                                                 <span th:if="${customer.getGender() == 1}">Nam</span>
                                                                 <span th:if="${customer.getGender() == 0}">Nữ</span>
-                                                                <span th:if="${(customer.getGender() != 0) && (customer.getGender() != 1)}">Nữ</span>
+                                                                <span th:if="${(customer.getGender() != 0) && (customer.getGender() != 1)}">Khác</span>
                                                             </td>
                                                             <td th:text="${customer.getRole()}"></td>
                                                             <td>
@@ -142,7 +143,7 @@
                                                                 th:if="${listCustomers.totalPages > 0}"
                                                                 th:each="pageNumber : ${pageNumbers}">
                                                                 <a class="page-link"
-                                                                   th:href="@{/admin/customer(page=${pageNumber},size=${listCustomers.size})}"
+                                                                   th:href="@{/admin/customer(page=${pageNumber},size=${listCustomers.size},sortBy='id')}"
                                                                    th:classappend="${pageNumber==listCustomers.number + 1} ? active"
                                                                    th:text="${pageNumber}"
                                                                 ></a>
@@ -150,7 +151,7 @@
                                                         </ul>
                                                     </nav>
                                                     <div>
-                                                        <label for="size_option"></label>Per each row <br>
+                                                        <label for="size_option"></label>Số lượng mỗi trang <br>
                                                         <select class="form-select" name="size" id="size_option"
                                                                 onchange="getval(this);">
                                                             <option selected value="0">Select row</option>
@@ -159,7 +160,6 @@
                                                             <option value="15">15</option>
                                                         </select>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +172,6 @@
             </div>
             <div th:replace="~{/admin/layout :: layout_footer}"></div>
         </div>
-        <!--    Footer Layout-->
     </div>
 </div>
 <script>
