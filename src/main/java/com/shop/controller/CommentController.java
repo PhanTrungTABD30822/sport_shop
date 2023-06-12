@@ -39,7 +39,7 @@ public class CommentController {
                                 Principal principal) {
         System.out.println(principal.getName());
         Optional<Product> productOptional = productRepository.findById(productId);
-        if (productOptional.isEmpty()) {
+        if (!productOptional.isPresent()) {
             throw new RuntimeException("Product not found with id: " + productId);
         }
         Product product = productOptional.get();
@@ -72,7 +72,7 @@ public class CommentController {
             return "redirect:" + returnUrl;
         }
         Optional<Product> productOptional = productRepository.findById(Integer.valueOf(httpServletRequest.getParameter("productId")));
-        if (productOptional.isEmpty()) {
+        if (!productOptional.isPresent()) {
             throw new RuntimeException("Product not found with id: " + httpServletRequest.getParameter("content"));
         }
         Product product = productOptional.get();
@@ -112,12 +112,12 @@ public class CommentController {
             return "redirect:" + returnUrl;
         }
         Optional<Product> productOptional = productRepository.findById(productId);
-        if (productOptional.isEmpty()) {
+        if (!productOptional.isPresent()) {
             throw new RuntimeException("Invalid id product");
         }
         Product product = productOptional.get();
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        if (optionalComment.isEmpty()) {
+        if (!optionalComment.isPresent()) {
             throw new RuntimeException("Invalid id comment");
         }
         Comment comment = optionalComment.get();
@@ -135,13 +135,13 @@ public class CommentController {
             return "redirect:/login";
         }
         Optional<Product> productOptional = productRepository.findById(productId);
-        if (productOptional.isEmpty()) {
+        if (!productOptional.isPresent()) {
             throw new RuntimeException("Invalid product id");
         }
         Product product = productOptional.get();
 
         Optional<Comment> commentOptional = commentRepository.findById(commentId);
-        if (commentOptional.isEmpty()) {
+        if (!commentOptional.isPresent()) {
             throw new RuntimeException("Invalid comment id");
         }
         Comment comment = commentOptional.get();
@@ -163,11 +163,11 @@ public class CommentController {
             return "redirect:/login";
         }
         Optional<Product> productOptional = productRepository.findById(productId);
-        if (productOptional.isEmpty()) {
+        if (!productOptional.isPresent()) {
             throw new RuntimeException("Comment is not exits in this product");
         }
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        if (optionalComment.isEmpty()) {
+        if (!optionalComment.isPresent()) {
             throw new RuntimeException("Comment is not found in database");
         }
         Comment comment = optionalComment.get();

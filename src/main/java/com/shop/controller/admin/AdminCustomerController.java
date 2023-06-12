@@ -65,6 +65,9 @@ public class AdminCustomerController {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
+
+                            .collect(Collectors.toList());
+
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "admin/customer/index";

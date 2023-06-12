@@ -2,11 +2,22 @@ package com.shop.controller;
 
 import com.shop.entities.Product;
 import com.shop.repositories.ProductRepository;
+import com.shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class ShopController {
@@ -14,9 +25,38 @@ public class ShopController {
     private ProductRepository productRepository;
 
     @GetMapping("/shop")
-    public String index(Model model){
-        model.addAttribute("products", productRepository.findAll());
-        return  "shop/index";
-    }
+    public String index(Model model, @RequestParam(value = "category_id", required = false) Integer category_id,
+                        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                        @RequestParam(value = "size", required = false, defaultValue = "6") int size,
+                        @RequestParam(value = "sort", required = false,defaultValue = "0") int sort
 
+    ) {
+        Sort s=Sort.by("name").ascending();
+        if(sort==1){
+             s=Sort.by("price").descending();
+        } if(sort==2){
+            s=Sort.by("price").ascending();
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, size, s);
+
+        Page<Product> products = productRepository.findAll(pageable);
+//        if(category_id!=null){
+//           products=  productRepository.findAllByCategoryId(category_id);
+//        }
+
+        Page<Product> products1 = productRepository.findAll(pageable);
+
+//        model.addAttribute("products1", products1);
+        int totalPages = products1.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        model.addAttribute("products", products);
+        return "shop/index";
+    }
 }
