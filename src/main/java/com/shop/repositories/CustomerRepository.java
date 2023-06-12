@@ -1,9 +1,13 @@
 package com.shop.repositories;
 
 import com.shop.entities.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -15,5 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Cr
     boolean existsByEmail(String email);
     boolean existsByPhone(String phoneNumber);
 
-
+    @Query("SELECT c FROM Customer c WHERE c.name LIKE %:keyword% OR c.email LIKE %:keyword%")
+    Page<Customer> search(@Param("keyword") String keyword, Pageable pageable);
+    Page<Customer> findByNameContainsIgnoreCase(String keyword, Pageable pageable);
 }
