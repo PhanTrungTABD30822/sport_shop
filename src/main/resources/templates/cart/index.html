@@ -25,45 +25,45 @@
           <table>
             <thead class="cart__row cart__header">
             <tr>
-              <th colspan="2" class="text-center">Product</th>
-              <th class="text-center">Price</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-right">Total</th>
+              <th class="text-right"></th>
+              <th class="text-center">Tên sản phẩm</th>
+              <th class="text-center">Giá tiền</th>
+              <th class="text-center">Số lượng</th>
+              <th class="text-right">Thành tiền</th>
               <th class="action">&nbsp;</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr class="cart__row border-bottom line1 cart-flex border-top">
-              <td class="cart__image-wrapper cart-flex-item">
-                <a href="#"><img class="cart__image" src="/assets/images/product-images/product-image6.jpg" alt="Minerva Dress black"></a>
+            <tr class="cart__row border-bottom line1 cart-flex border-top"th:each="item : ${all_items_in_shoppingcart}">
+              <td class="cart__image-wrapper cart-flex-item text-right">
+                <a href="#"><img class="cart__image" th:src="@{/images/__${item.img}__}"></a>
               </td>
               <td class="cart__meta small--text-left cart-flex-item">
-                <div class="list-view-item__title">
-                  <a href="#">Minerva Dress black</a>
+                <div class="list-view-item__title text-center">
+                  <a href="#" th:text="${item.name}"></a>
                 </div>
               </td>
-              <td class="cart__price-wrapper cart-flex-item">
-                <span class="money">$526.00</span>
+              <td class="cart__price-wrapper cart-flex-item text-center">
+                <span class="money" th:text="${item.price}"></span>
               </td>
-              <td class="cart__update-wrapper cart-flex-item text-right">
-                <div class="cart__qty text-center">
-                  <div class="qtyField">
-                    <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a>
-                    <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" value="1" pattern="[0-9]*">
-                    <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a>
-                  </div>
-                </div>
+              <td class="cart__update-wrapper cart-flex-item text-center">
+                <form th:action="@{/cart/update}" method="POST">
+                  <input type="hidden" th:name="productId" th:value="${item.productId}">
+                  <input type="number" th:name="quantity" th:value="${item.quantity}"
+                         onblur="this.form.submit()" style="width:50px">
+                </form>
               </td>
-              <td class="text-right small--hide cart-price">
-                <div><span class="money">$735.00</span></div>
+              <td class="text-center small--hide cart-price">
+                <div><span class="money" th:text="${item.price}*${item.quantity}" ></span></div>
               </td>
-              <td class="text-center small--hide"><a href="#" class="btn btn--secondary cart__remove" title="Remove tem"><i class="icon icon anm anm-times-l"></i></a></td>
+              <td><a th:href="@{/shoppingcart/remove/{id}(id=${item.productId})}"
+                     class="btn btn-primary">Remove</a></td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-              <td colspan="3" class="text-left"><a href="/" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i> Continue shopping</a></td>
+              <td colspan="3" class="text-left"><a href="/" class="btn--link cart-continue"><i class="icon icon-arrow-circle-left"></i>Tiếp tục mua sắm</a></td>
 
             </tr>
             </tfoot>
@@ -83,8 +83,8 @@
         </div>
         <div class="solid-border">
           <div class="row">
-            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Subtotal</strong></span>
-            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">$735.00</span></span>
+            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Thành tiền</strong></span>
+            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" th:text="${total_amount}"></span></span>
           </div>
           <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
           <p class="cart_tearm">
@@ -92,7 +92,7 @@
               <input type="checkbox" name="tearm" id="cartTearm" class="checkbox" value="tearm" required="">
               I agree with the terms and conditions</label>
           </p>
-          <input href="/checkout" type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Checkout" >
+          <a href="@{/cart/checkout}" type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Đặt hàng">Đặt hàng</a>
           <div class="paymnet-img"><img src="/assets/images/payment-img.jpg" alt="Payment"></div>
         </div>
 
