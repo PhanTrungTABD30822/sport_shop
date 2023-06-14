@@ -5,16 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-
-
 <div>
     <!-- Start main left sidebar menu -->
     <div id="main_content">
         <div th:replace="/admin/layout :: sidebar"></div>
         <div class="page">
-
             <div id="page_top" class="section-body top_dark">
-
                 <div th:replace="/admin/layout :: navbar_layout"></div>
             </div>
             <div class="section-body mt-3">
@@ -25,34 +21,26 @@
                                 <div class="container-fluid">
                                     <div class="row clearfix">
                                         <div class="col-12">
-
-
                                             <h2>Đơn hàng</h2>
-
-
                                             <div class="card">
                                                 <div class="card-body">
-                                                    @using (Html.BeginForm("Index","Orders",FormMethod.Get))
-                                                    {
-                                                    <div class="row">
-
-                                                        <div class="col-lg-2 col-md-4 col-sm-6">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="q" placeholder="Search">
+                                                    <form th:action="@{/Orders}" th:method="get">
+                                                        <div class="row">
+                                                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" name="q" placeholder="Search">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                                                <div class="input-group">
+                                                                    <input type="date" class="form-control" name="date" th:value="${#dates.format(date, 'yyyy-MM-dd') ?: ''}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                                                <button type="submit" class="btn btn-primary btn-block" title="">Search</button>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-2 col-md-4 col-sm-6">
-                                                            <div class="input-group">
-                                                                <input type="date" class="form-control" name="date" value=@(!string.IsNullOrEmpty(ViewBag.date) !=null ? ViewBag.date :  "")>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2 col-md-4 col-sm-6">
-                                                            <button type="submit" class="btn btn-primary btn-block" title="">Search</button>
-                                                        </div>
-
-                                                    </div>
-                                                    }
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +54,6 @@
                                                             <th colspan="3">Hành động</th>
                                                         </tr>
                                                         <tr>
-
                                                             <th>Id</th>
                                                             <th>Tên người nhận</th>
                                                             <th>Số điện thoại người nhận</th>
@@ -76,47 +63,47 @@
                                                             <th>Giá tiền</th>
                                                             <th>Trạng thái</th>
                                                             <th>Hành động</th>
-
                                                             <th>Xem chi tiết</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach (var item in Model)
-                                                        {
-                                                        <tr>
-
-                                                            <td><a href="#">#@item.id</a></td>
-                                                            <td><span>@item.name_receive</span></td>
-                                                            <td><span>@item.phone_receive</span></td>
-                                                            <td><span>@item.address_receive</span></td>
-                                                            <td><span>@item.time</span></td>
-
-                                                            <td><div style=" overflow: hidden; inline-size: 150px;">@item.note</div></td>
-                                                            <td>@item.total_price</td>
-
-                                                            <td><span>Đang đặt</span></td>
-
+                                                        <tr th:each="item : ${products}">
+                                                            <td><a href="#" th:text="${item.id}" ></a></td>
+                                                            <td><span th:text="${item.nameReceive}"></span></td>
+                                                            <td><span th:text="${item.phoneReceive}"></span></td>
+                                                            <td><span th:text="${item.addressReceive}"></span></td>
+                                                            <td><span th:text="${item.createdAt}"></span></td>
+                                                            <td>
+                                                                <div style="overflow: hidden; inline-size: 150px;" th:text="${item.note}"></div>
+                                                            </td>
+                                                            <td th:text="${item.totalPrice}"></td>
 
                                                             <td>
-                                                                <div><a href="/Admin/Orders/UpdateStatus?type=1&id=@item.id">Duyệt đơn</a></div>
-                                                                <div><a href="/Admin/Orders/UpdateStatus?type=2&id=@item.id">Hủy đơn</a></div>
-
+                                                                <span th:if="${item.status == 1}">Đã phê duyệt</span>
+                                                                <span th:if="${item.status == 2}">Đã hủy</span>
+                                                                <span th:unless="${item.status == 1 or item.status == 2}">Đang đặt</span>
                                                             </td>
 
+                                                            <td th:if="${item.status > 0}">
+                                                                <div style="color:#ccc">Duyệt đơn</div>
+                                                                <div style="color:#ccc">Hủy đơn</div>
+                                                            </td>
 
+                                                            <td th:unless="${item.status > 0}">
+                                                                <div><a th:href="@{/admin/order/UpdateStatus(type=1, id=${item.id})}">Duyệt đơn</a></div>
+                                                                <div><a th:href="@{/admin/order/UpdateStatus(type=2, id=${item.id})}">Hủy đơn</a></div>
+                                                            </td>
                                                             <td>
-                                                                <div> @Html.ActionLink("Chi tiết", "Details", new { id = item.id }) </div>
-
-
+                                                                <div>
+                                                                    <a th:href="@{/admin/order/{id}(id=${item.id})}">Chi tiết</a>
+                                                                </div>
                                                             </td>
                                                         </tr>
-                                                        }
-
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-                                           Phân trang
+                                            Phân trang
                                         </div>
                                     </div>
                                 </div>
@@ -125,6 +112,7 @@
                     </div>
                 </div>
             </div>
+
             <div th:replace="/admin/layout :: layout_footer"></div>
         </div>
         <!--    Footer Layout-->

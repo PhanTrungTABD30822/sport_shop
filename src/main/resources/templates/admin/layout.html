@@ -31,7 +31,7 @@
             <ul class="metismenu">
                 <li class="g_heading">Danh mục</li>
                 <li class="active">
-                    <a href="/admin/statistic"><i class="fa fa-dashboard"></i><span>Trang chủ</span></a>
+                    <a href="/admin/home"><i class="fa fa-dashboard"></i><span>Trang chủ</span></a>
                 </li>
                 <li>
                     <a href="/admin/order"><i class="fa fa-list-ul"></i><span>Đơn hàng</span></a>
@@ -76,9 +76,14 @@
 
                     <div class="dropdown d-flex">
                         <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2"
+                           th:if="${session.name_admin}" th:text="${session.name_admin}"></a>
+                        <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2"
                            th:href="@{/admin}"
-                           th:text="${session.name} ?: 'Đăng nhập'" >
+                           th:unless="${session.name_admin}" >Đăng nhập
                         </a>
+
+                        <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2" th:if="${session.name_admin}" th:href="@{/logout}">Đăng xuất</a>
+
 
                     </div>
                     <div class="dropdown d-flex">

@@ -20,42 +20,31 @@
             <div class="section-body mt-3">
                 <div class="container-fluid">
                     <div class="row clearfix">
-
-
                         <h2>Chi tiết đơn hàng</h2>
 
-                        <div class="col-12">
+                        <div class="col-12" >
                             <div class="card">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                         <thead>
                                         <tr>
                                             <th colspan="5">Đơn hàng</th>
-
                                         </tr>
                                         <tr>
-
-
                                             <th>Tên sản phẩm</th>
                                             <th>Hình ảnh</th>
                                             <th>Giá tiền</th>
                                             <th>Số lượng</th>
-
-
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <tr th:each="item : ${model}">
+                                            <td th:text="${item.product.name}"></td>
+                                            <td><img  th:src="@{/images/__${item.product.img}__}" width="100" /></td>
 
+                                            <td th:text="${item.product.price}"></td>
 
-                                            <tr>
-                                                <td>@item.product.name</td>
-                                                <td><img src="/Areas/Admin/Assets/products/@item.product.img"
-                                                         width="100"/></td>
-                                                <td>@item.product.price</td>
-                                                <td>@item.Quantity</td>
-                                            </tr>
-                                            tong += (int)(item.Quantity * item.product.price);
-
+                                            <td th:text="${item.quantity}"></td>
 
                                         </tbody>
                                     </table>
@@ -63,12 +52,16 @@
                             </div>
                             Trang
                             <div style="float:right">
-                                Tổng tiền @tong VND
+                                Tổng tiền
+<!--                                <span th:text="${#aggregates.sum(model.![price])}"></span> VND-->
+
+
                             </div>
                         </div>
+
                         <p>
 
-                            @Html.ActionLink("Back to List", "Index")
+                            <a href="">Trở về trang trước</a>
                         </p>
 
                     </div>

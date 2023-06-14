@@ -66,7 +66,6 @@ public class AdminCustomerController {
                     .boxed()
                     .collect(Collectors.toList());
 
-                            .collect(Collectors.toList());
 
             model.addAttribute("pageNumbers", pageNumbers);
         }
