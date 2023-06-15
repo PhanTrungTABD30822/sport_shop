@@ -31,7 +31,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/product/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/admin/category/**").hasAnyAuthority("ADMIN")
-
+                        .requestMatchers("/admin/customer/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/admin/comment/**").hasAnyAuthority("ADMIN")
                         .anyRequest().permitAll()
                 ) .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")
@@ -46,8 +47,6 @@ public class SecurityConfig {
                         .clearAuthentication(true)
                         .permitAll()
                 )
-
-
                 .build();
 
     }

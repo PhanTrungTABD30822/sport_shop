@@ -24,14 +24,14 @@
 <div class="main-sidebar sidebar-style-3" th:fragment="sidebar">
 
     <div id="left-sidebar" class="sidebar" style="padding:15px 15px 20px 30px !important; ">
-        <a th:href="@{/admin/}" class="brand-name">
+        <a th:href="@{/admin}" class="brand-name">
             <img src="https://theme.hstatic.net/200000580329/1000937158/14/logo.png" alt="logo"/>
         </a>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
                 <li class="g_heading">Danh mục</li>
                 <li class="active">
-                    <a href="/admin/statistic"><i class="fa fa-dashboard"></i><span>Trang chủ</span></a>
+                    <a href="/admin/home"><i class="fa fa-dashboard"></i><span>Trang chủ</span></a>
                 </li>
                 <li>
                     <a href="/admin/order"><i class="fa fa-list-ul"></i><span>Đơn hàng</span></a>
@@ -49,7 +49,7 @@
                     <a href="/admin/comment"><i class="fa fa-list-ul"></i><span>Bình luận</span></a>
                 </li>
                 <li>
-                    <a href="project-taskboard.html"><i
+                    <a href="#"><i
                             class="fa fa-calendar-check-o"></i><span>Taskboard</span></a>
                 </li>
             </ul>
@@ -76,9 +76,14 @@
 
                     <div class="dropdown d-flex">
                         <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2"
+                           th:if="${session.name_admin}" th:text="${session.name_admin}"></a>
+                        <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2"
                            th:href="@{/admin}"
-                           th:text="${session.name} ?: 'Đăng nhập'" >
+                           th:unless="${session.name_admin}" >Đăng nhập
                         </a>
+
+                        <a class="nav-link icon d-none d-md-flex btn btn-default btn-icon ml-2" th:if="${session.name_admin}" th:href="@{/logout}">Đăng xuất</a>
+
 
                     </div>
                     <div class="dropdown d-flex">

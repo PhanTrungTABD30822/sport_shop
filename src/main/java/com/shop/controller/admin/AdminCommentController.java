@@ -2,15 +2,17 @@ package com.shop.controller.admin;
 
 import com.shop.entities.Category;
 import com.shop.entities.Comment;
+import com.shop.entities.Customer;
 import com.shop.repositories.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,11 +25,23 @@ public class AdminCommentController {
 
 
     @GetMapping("")
-    public String index(Model model) {
-
-
-        model.addAttribute("listComments", commentRepository.findAll());
-
+    public String index(Model model,
+                        @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                        @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+                        @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
+                        @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir) {
+        Sort.Direction direction = Sort.Direction.fromString(sortDir);
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<Comment> comments = commentRepository.findAll(pageable);
+        model.addAttribute("listComments", comments);
+        int totalPages = comments.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         return "admin/comment/index";
     }
 

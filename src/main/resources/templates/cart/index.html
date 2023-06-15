@@ -64,7 +64,10 @@
               <td class="text-center small--hide cart-price">
                 <div><span class="money" th:text="${item.price}*${item.quantity}" ></span></div>
               </td>
-              <td><a th:href="@{/cart/remove/{id}(id=${item.productId})}"
+
+
+              <td><a th:href="@{/shoppingcart/remove/{id}(id=${item.productId})}"
+
                      class="btn btn-primary">Xóa</a></td>
             </tr>
             </tbody>
@@ -88,11 +91,11 @@
             <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Thành tiền</strong></span>
             <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" th:text="${total_amount}"></span></span>
           </div>
-          <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+          <div class="cart__shipping">Vận chuyển &amp; và thuế trước khi thanh toán</div>
           <p class="cart_tearm">
             <label>
               <input type="checkbox" name="tearm" id="cartTearm" class="checkbox" value="tearm" required="">
-              I agree with the terms and conditions</label>
+              Tôi đồng ý với các điều khoản và điều kiện</label>
           </p>
           <a href="/cart/checkout" type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Đặt hàng">Đặt hàng</a>
           <div class="paymnet-img"><img src="/assets/images/payment-img.jpg" alt="Payment"></div>

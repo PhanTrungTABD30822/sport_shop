@@ -1,18 +1,12 @@
 package com.shop.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-
 import java.io.Serializable;
 
-@Data
-@Entity
-@Table(name="order_detail")
-@IdClass(RelationshipId.class)
-public class OrderDetails  implements Serializable {
+public class RelationshipId implements Serializable {
     @Id
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
@@ -25,7 +19,6 @@ public class OrderDetails  implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Product product;
-    private Integer quantity;
 
+    // Getter and Setter
 }
-
