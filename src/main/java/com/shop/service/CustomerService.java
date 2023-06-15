@@ -17,4 +17,11 @@ public class CustomerService {
         return userRepository.findByName(username);
     }
 
+    public Customer findByEmail(String name) {
+        return userRepository.findByEmail(name);
+    }
+
+    public Customer findById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

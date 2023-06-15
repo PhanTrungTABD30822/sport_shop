@@ -12,10 +12,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     Map<Integer, CartItem> shoppingCart = new HashMap<>();
     @Override
     public void add(CartItem newItem){
-        CartItem cartItem = shoppingCart.get(newItem.getClass());
+        CartItem cartItem =  shoppingCart.values().
+                stream().filter(e->e.getProductId() == newItem.getProductId()).findAny().orElse(null);
         if(cartItem == null){
+
             shoppingCart.put(newItem.getProductId(),newItem);
         }else{
+
             cartItem.setQuantity(cartItem.getQuantity()+1);
         }
     }

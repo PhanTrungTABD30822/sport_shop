@@ -1,10 +1,13 @@
 package com.shop.controller;
 
 import com.shop.entities.*;
+import com.shop.repositories.OrderDetailRepository;
+import com.shop.repositories.OrderRepository;
 import com.shop.repositories.ProductRepository;
 import com.shop.service.CustomerService;
 import com.shop.service.ProductService;
 import com.shop.service.ShoppingCartService;
+import jakarta.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,11 @@ public class CartController {
     ProductRepository productRepository;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
     @GetMapping()
     public String viewCart(Model model){
         model.addAttribute("all_items_in_shoppingcart",shoppingCartService.getAllItems());
@@ -64,20 +72,39 @@ public class CartController {
     }
     @GetMapping("/checkout")
     public String checkout(Model model, Principal principal){
-
         if(principal == null){
             return "redirect:/login";
         }else {
             model.addAttribute("all_items_in_shoppingcart",shoppingCartService.getAllItems());
             model.addAttribute("total_amount",shoppingCartService.getAmount());
-            Customer customer = customerService.findByUsername(principal.getName());
-            model.addAttribute("customer", customer);
+            model.addAttribute("order",new Order());
 
         }
         return "cart/checkout";
-
-
     }
 
+    @PostMapping("/checkout")
+    public String order(@ModelAttribute("order") Order order, Model model, Principal principal, HttpSession httpSession){
+        if(principal == null){
+            return "redirect:/login";
+        }else {
 
+            Customer customer = customerService.findById((Integer) httpSession.getAttribute("id"));
+            customerService.save(customer);
+            order.setCustomer(customer);
+            System.out.println(customer);
+
+            orderRepository.save(order);
+            for ( CartItem cartItem: shoppingCartService.getAllItems()) {
+              Product product=  productService.findById(cartItem.getProductId());
+              OrderDetails orderDetails =new OrderDetails();
+              orderDetails.setOrders(order);
+              orderDetails.setProduct(product);
+              orderDetails.setQuantity(cartItem.getQuantity());
+                orderDetailRepository.save(orderDetails);
+            }
+            shoppingCartService.clear();
+        }
+        return "redirect:/checkout";
+    }
 }

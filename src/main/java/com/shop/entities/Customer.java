@@ -25,54 +25,6 @@ public class Customer  implements Serializable {
     @NotBlank(message = "Số điện thoại không được để trống! ")
     private String phone;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
     @NotBlank(message = "Email không được để trống! ")
     @Size(max = 50, message = "Email không quá 50 ký tự")
     private String email;
@@ -90,7 +42,7 @@ public class Customer  implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Comment> comments;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade=CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Order> orders;

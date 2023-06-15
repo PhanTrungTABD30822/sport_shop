@@ -27,71 +27,6 @@ public class Order implements Serializable {
     private Date createdAt;
     @Column(name = "total_price")
     private String totalPrice;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getNameReceive() {
-        return nameReceive;
-    }
-
-    public void setNameReceive(String nameReceive) {
-        this.nameReceive = nameReceive;
-    }
-
-    public String getAddressReceive() {
-        return addressReceive;
-    }
-
-    public void setAddressReceive(String addressReceive) {
-        this.addressReceive = addressReceive;
-    }
-
-    public String getPhoneReceive() {
-        return phoneReceive;
-    }
-
-    public void setPhoneReceive(String phoneReceive) {
-        this.phoneReceive = phoneReceive;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     @Column(name = "name_receive")
     private String nameReceive;
     @Column(name = "address_receive")
@@ -102,7 +37,7 @@ public class Order implements Serializable {
     private String note;
     @Column(name = "status")
     private Integer status;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "customer_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

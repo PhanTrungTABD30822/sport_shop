@@ -88,29 +88,26 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                     <div class="create-ac-content bg-light-gray padding-20px-all">
-                        <form  >
+                        <form  th:action="@{/cart/checkout}" th:object="${order}" method="post">
                             <h2 class="text-center"><b>Thông tin khách hàng</b></h2>
                             <div class="form-group">
                                 <label>Họ tên khách hàng</label>
-                                <input type="text" name="name_receive" required class="form-control" autocomplete="off" />
+                                <input type="text" name="name_receive" required th:field="*{nameReceive}" class="form-control" autocomplete="off" />
                             </div>
                             <div class="form-group">
                                 <label>Số điện thoại</label>
-                                <input type="text" name="phone_receive" class="form-control" autocomplete="off" value="" />
+                                <input type="text" name="phone_receive" th:field="*{phoneReceive}" class="form-control" autocomplete="off" value="" />
                             </div>
                             <div class="form-group">
                                 <label>Địa chỉ</label>
-                                <input type="text" name="address_receive" class="form-control" autocomplete="off" value="" />
+                                <input type="text" name="address_receive" th:field="*{addressReceive}" class="form-control" autocomplete="off" value="" />
                             </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" name="Email" class="form-control" autocomplete="off" value="" />
-                            </div>
+
                             <div class="form-group">
                                 <label>Note</label>
-                                <input type="text" name="Note" class="form-control" autocomplete="off" />
+                                <input type="text" name="note"  th:field="*{note}" class="form-control" autocomplete="off" />
                             </div>
-                            <input type="hidden"  value="@tong" name="price"/>
+<!--                            <input type="hidden"  value="@tong" name="price"/>-->
                             <div class="form-group">
                                 <label>Hình thức thanh toán</label>
                                 <select class="form-control" name="PayMent">

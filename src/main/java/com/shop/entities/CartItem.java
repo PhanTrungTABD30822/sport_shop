@@ -11,7 +11,7 @@ public class CartItem {
     private String name;
     private double price;
     private String img;
-    private int quantity = 1;
+    private int quantity ;
 
     public Integer   getProductId() {
         return productId;
