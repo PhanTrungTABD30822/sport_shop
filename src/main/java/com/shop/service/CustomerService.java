@@ -13,6 +13,15 @@ public class CustomerService {
     public void save(Customer user){
         userRepository.save(user);
     }
+    public Customer findByUsername(String username) {
+        return userRepository.findByName(username);
+    }
 
+    public Customer findByEmail(String name) {
+        return userRepository.findByEmail(name);
+    }
 
+    public Customer findById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

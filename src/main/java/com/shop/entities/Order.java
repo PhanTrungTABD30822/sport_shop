@@ -37,7 +37,7 @@ public class Order implements Serializable {
     private String note;
     @Column(name = "status")
     private Integer status;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "customer_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
