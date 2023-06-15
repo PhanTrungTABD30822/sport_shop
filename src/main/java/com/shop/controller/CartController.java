@@ -1,14 +1,19 @@
 package com.shop.controller;
 
-import com.shop.entities.CartItem;
-import com.shop.entities.Product;
+import com.shop.entities.*;
 import com.shop.repositories.ProductRepository;
+import com.shop.service.CustomerService;
 import com.shop.service.ProductService;
 import com.shop.service.ShoppingCartService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller()
 @RequestMapping("/cart")
@@ -19,6 +24,8 @@ public class CartController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CustomerService customerService;
     @GetMapping()
     public String viewCart(Model model){
         model.addAttribute("all_items_in_shoppingcart",shoppingCartService.getAllItems());
@@ -51,12 +58,26 @@ public class CartController {
         return "redirect:/cart";
     }
     @PostMapping("update")
-    public String updateItem(@RequestParam("productId") Integer productId,@RequestParam("quantity")Integer quantity){
+    public String updateItem(@RequestParam("productId") Integer productId,@RequestParam("quantity")int  quantity){
         shoppingCartService.update(productId,quantity);
         return "redirect:/cart";
     }
     @GetMapping("/checkout")
-    public String checkout(){
+    public String checkout(Model model, Principal principal){
+
+        if(principal == null){
+            return "redirect:/login";
+        }else {
+            model.addAttribute("all_items_in_shoppingcart",shoppingCartService.getAllItems());
+            model.addAttribute("total_amount",shoppingCartService.getAmount());
+            Customer customer = customerService.findByUsername(principal.getName());
+            model.addAttribute("customer", customer);
+
+        }
         return "cart/checkout";
+
+
     }
+
+
 }

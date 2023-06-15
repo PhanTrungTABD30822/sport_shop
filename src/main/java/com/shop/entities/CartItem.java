@@ -7,15 +7,17 @@ import lombok.ToString;
 import java.util.List;
 
 public class CartItem {
-    private int productId;
+    private Integer productId;
     private String name;
     private double price;
+    private String img;
+    private int quantity = 1;
 
-    public int getProductId() {
+    public Integer   getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -51,8 +53,7 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    private String img;
-    private int quantity = 1;
+
 
 
 }

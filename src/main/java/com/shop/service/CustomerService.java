@@ -13,6 +13,8 @@ public class CustomerService {
     public void save(Customer user){
         userRepository.save(user);
     }
-
+    public Customer findByUsername(String username) {
+        return userRepository.findByName(username);
+    }
 
 }

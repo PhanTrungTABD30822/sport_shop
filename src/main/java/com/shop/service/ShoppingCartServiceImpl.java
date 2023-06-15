@@ -21,12 +21,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(Integer id) {
         shoppingCart.remove(id);
     }
 
     @Override
-    public CartItem update(int productID, int quantity) {
+    public CartItem update(Integer productID, int quantity) {
         CartItem cartItem = shoppingCart.get(productID);
         cartItem.setQuantity(quantity);
         return cartItem;
