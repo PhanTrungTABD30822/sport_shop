@@ -16,8 +16,15 @@ public class AdminCategoryController {
     CategoryRepository categoryRepository;
 
     @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("categories", categoryRepository.findAll());
+    public String index(Model model, String keyword) {
+        if(keyword != null && !keyword.trim().isEmpty())
+        {
+            model.addAttribute("categories", categoryRepository.search(keyword.trim()));
+        }else
+        {
+            model.addAttribute("categories", categoryRepository.findAll());
+        }
+
         return "admin/category/index";
     }
 
