@@ -35,7 +35,8 @@
 
                                                             <div class="col-lg-2 col-md-4 col-sm-6">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" name="q"
+                                                                    <input type="text" class="form-control"
+                                                                           name="keyword"
                                                                            placeholder="Nhập từ khóa vào đây">
                                                                 </div>
                                                             </div>
@@ -57,8 +58,8 @@
                                                         <thead>
                                                         <tr>
                                                             <th>
-                                                                    <a  href="?sortBy=id&amp;sortDir=asc">ID ▲</a>
-                                                                    <a href="?sortBy=id&amp;sortDir=desc">ID ▼</a>
+                                                                <a href="?sortBy=id&amp;sortDir=asc">ID ▲</a>
+                                                                <a href="?sortBy=id&amp;sortDir=desc">ID ▼</a>
                                                             </th>
                                                             <th>Tên người dùng</th>
                                                             <th>Nội dung</th>
@@ -98,8 +99,10 @@
                                                         </ul>
                                                     </nav>
                                                     <div class="mb-3">
-                                                        <label for="size_option" class="form-label">Số lượng mỗi trang</label><br>
-                                                        <select class="form-select" name="size" id="size_option" onchange="getval(this);">
+                                                        <label for="size_option" class="form-label">Số lượng mỗi
+                                                            trang</label><br>
+                                                        <select class="form-select" name="size" id="size_option"
+                                                                onchange="getval(this);">
                                                             <option selected value="0">Select row</option>
                                                             <option value="5">5</option>
                                                             <option value="10">10</option>

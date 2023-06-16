@@ -29,11 +29,17 @@ public class AdminCommentController {
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                         @RequestParam(value = "size", required = false, defaultValue = "5") int size,
                         @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
-                        @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir) {
+                        @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir,
+                        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<Comment> comments = commentRepository.findAll(pageable);
+        Page<Comment> comments;
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            comments = commentRepository.searchComment(keyword, pageable);
+        } else {
+            comments = commentRepository.findAll(pageable);
+        }
         model.addAttribute("listComments", comments);
         int totalPages = comments.getTotalPages();
         if (totalPages > 0) {
@@ -42,6 +48,7 @@ public class AdminCommentController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+        model.addAttribute("keyword", keyword);
         return "admin/comment/index";
     }
 

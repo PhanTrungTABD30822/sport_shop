@@ -28,8 +28,14 @@ public class AdminProductController {
     ProductRepository productRepository;
 
     @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+    public String index(Model model, String keyword) {
+        if(keyword != null && !keyword.trim().isEmpty())
+        {
+            model.addAttribute("products", productRepository.searchProductAdmin(keyword.trim()));
+        }else
+        {
+            model.addAttribute("products", productRepository.findAll());
+        }
         return "admin/product/index";
     }
 

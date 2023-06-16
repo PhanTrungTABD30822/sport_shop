@@ -18,8 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Cr
     Customer findByName(String me);
     boolean existsByEmail(String email);
     boolean existsByPhone(String phoneNumber);
-
-    @Query("SELECT c FROM Customer c WHERE c.name LIKE %:keyword% OR c.email LIKE %:keyword%")
-    Page<Customer> search(@Param("keyword") String keyword, Pageable pageable);
-    Page<Customer> findByNameContainsIgnoreCase(String keyword, Pageable pageable);
+    @Query("SELECT c FROM Customer c WHERE c.name LIKE %:keyword% OR c.email LIKE %:keyword% OR c.phone LIKE %:keyword%")
+    Page<Customer> search(String keyword, Pageable pageable);
 }
