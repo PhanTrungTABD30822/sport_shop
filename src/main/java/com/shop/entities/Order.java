@@ -26,7 +26,7 @@ public class Order implements Serializable {
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "total_price")
-    private String totalPrice;
+    private int totalPrice;
     @Column(name = "name_receive")
     private String nameReceive;
     @Column(name = "address_receive")
