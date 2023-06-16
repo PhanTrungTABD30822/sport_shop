@@ -65,17 +65,17 @@
 
                                                             <div class="col-lg-8 col-md-4 col-sm-6">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" name="q"
-                                                                           placeholder="Search">
+                                                                    <input type="text" class="form-control" name="keyword" placeholder="Search">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-2 col-md-4 col-sm-6">
-                                                                <button style="background-color: #9999ff" type="submit"
-                                                                        class="btn btn-primary btn-block"
-                                                                        title="">Tìm kiếm <i
+                                                                <a style="background-color: #9999ff" type="submit"
+                                                                   th:href="@{/admin/customer(page=${pageNumbers},size=${listCustomers.size},sortBy='id',keyword=${keyword})}"
+                                                                   class="btn btn-primary btn-block"
+                                                                   title="">Tìm kiếm <i
                                                                         class="fas fa-search"
                                                                         style="color: #000000;"></i>
-                                                                </button>
+                                                                </a>
                                                             </div>
                                                             <a class="btn btn-primary" th:href="@{customer/create}"><i
                                                                     class="fas fa-user-plus"></i> Thêm
@@ -93,14 +93,16 @@
                                                     <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                                         <thead>
                                                         <tr class="title">
-                                                           <th>
-                                                               <a  href="?sortBy=id&amp;sortDir=asc">ID ▲</a>
-                                                               <a href="?sortBy=id&amp;sortDir=desc">ID ▼</a>
-                                                           </th>
+                                                            <th>
+                                                                <a href="?sortBy=id&amp;sortDir=asc">ID ▲</a>
+                                                                <a href="?sortBy=id&amp;sortDir=desc">ID ▼</a>
+                                                            </th>
                                                             <th style="font-weight: bold">Email</th>
                                                             <th style="font-weight: bold">
-                                                                <a  href="?sortBy=name&amp;sortDir=asc">Tên người dùng ▲</a>
-                                                                <a href="?sortBy=name&amp;sortDir=desc">Tên người dùng ▼</a>
+                                                                <a href="?sortBy=name&amp;sortDir=asc">Tên người dùng
+                                                                    ▲</a>
+                                                                <a href="?sortBy=name&amp;sortDir=desc">Tên người dùng
+                                                                    ▼</a>
                                                             </th>
                                                             <th style="font-weight: bold">Số điện thoại</th>
                                                             <th style="font-weight: bold">Giới tính</th>
@@ -143,7 +145,7 @@
                                                                 th:if="${listCustomers.totalPages > 0}"
                                                                 th:each="pageNumber : ${pageNumbers}">
                                                                 <a class="page-link"
-                                                                   th:href="@{/admin/customer(page=${pageNumber},size=${listCustomers.size},sortBy='id')}"
+                                                                   th:href="@{/admin/customer(page=${pageNumbers},size=${listCustomers.size},sortBy='id',q=${q})}"
                                                                    th:classappend="${pageNumber==listCustomers.number + 1} ? active"
                                                                    th:text="${pageNumber}"
                                                                 ></a>

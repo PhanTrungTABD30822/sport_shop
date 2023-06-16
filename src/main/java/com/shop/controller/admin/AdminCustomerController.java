@@ -45,45 +45,45 @@ public class AdminCustomerController {
     public String index(Model model,
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                         @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-                        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
                         @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy,
-                        @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir) {
+                        @RequestParam(value = "sortDir", required = false, defaultValue = "asc") String sortDir,
+                        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
         Sort.Direction direction = Sort.Direction.fromString(sortDir);
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<Customer> customers;
-        if(!keyword.isEmpty())
-        {
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            customers = customerRepository.search(keyword.trim(), pageable);
+        } else {
             customers = customerRepository.findAll(pageable);
-        }else
-        {
-            customers = customerRepository.findByNameContainsIgnoreCase(keyword, pageable);
         }
-        model.addAttribute("listCustomers",customers);
+        model.addAttribute("listCustomers", customers);
         int totalPages = customers.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
-
-
             model.addAttribute("pageNumbers", pageNumbers);
         }
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("keyword", keyword);
         return "admin/customer/index";
     }
+
     @GetMapping("/delete/{idCustomer}")
     public String deleteCustomerByAdmin(@PathVariable("idCustomer") Integer idCustomer) {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid customer id"));
         customerRepository.delete(customer);
         return "redirect:/admin/customer";
     }
+
     @GetMapping("/edit/{idCustomer}")
     public String showForm(Model model,
-                   @PathVariable Integer idCustomer,
-                   Principal principal,
-                   RedirectAttributes redirectAttributes) {
-        if(principal.getName() == null)
-        {
+                           @PathVariable Integer idCustomer,
+                           Principal principal,
+                           RedirectAttributes redirectAttributes) {
+        if (principal.getName() == null) {
             throw new RuntimeException("Please login");
         }
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid id customer"));
@@ -100,8 +100,7 @@ public class AdminCustomerController {
         Customer customer = customerRepository.findById(idCustomer).orElseThrow(() -> new RuntimeException("Invalid customer id"));
         String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         String phonePattern = "^\\d+$";
-        if(principal.getName() == null)
-        {
+        if (principal.getName() == null) {
             throw new RuntimeException("Vui lòng đăng nhập tài khoản có quyền là Admin");
         }
         //Check trùng
@@ -110,7 +109,7 @@ public class AdminCustomerController {
             return "/admin/customer/edit";
         }
         //Kiểm tran email đúng định dạng
-        if(!Pattern.matches(emailPattern, updateCustomer.getEmail())){
+        if (!Pattern.matches(emailPattern, updateCustomer.getEmail())) {
             bindingResult.rejectValue("email", "invalid", "Email không đúng định dạng, vui lòng thử lại email khác");
             return "/admin/customer/edit";
         }

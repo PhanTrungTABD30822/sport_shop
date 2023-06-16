@@ -3,6 +3,7 @@ package com.shop.controller;
 import com.shop.entities.Product;
 import com.shop.repositories.ProductRepository;
 import com.shop.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,30 +26,33 @@ public class ShopController {
     private ProductRepository productRepository;
 
     @GetMapping("/shop")
-    public String index(Model model, @RequestParam(value = "category_id", required = false) Integer category_id,
+    public String index(Model model,
+                        @RequestParam(value = "category_id", required = false) Integer category_id,
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                         @RequestParam(value = "size", required = false, defaultValue = "6") int size,
-                        @RequestParam(value = "sort", required = false,defaultValue = "0") int sort
-
+                        @RequestParam(value = "sort", required = false, defaultValue = "0") int sort,
+                        String q
     ) {
-        Sort s=Sort.by("name").ascending();
-        if(sort==1){
-             s=Sort.by("price").descending();
-        } if(sort==2){
-            s=Sort.by("price").ascending();
+        Sort s = Sort.by("name").ascending();
+        if (sort == 1) {
+            s = Sort.by("price").descending();
+        }
+        if (sort == 2) {
+            s = Sort.by("price").ascending();
         }
 
+        Page<Product> products;
         Pageable pageable = PageRequest.of(page - 1, size, s);
-
-        Page<Product> products = productRepository.findAll(pageable);
-//        if(category_id!=null){
-//           products=  productRepository.findAllByCategoryId(category_id);
-//        }
-
-        Page<Product> products1 = productRepository.findAll(pageable);
-
-//        model.addAttribute("products1", products1);
-        int totalPages = products1.getTotalPages();
+        if(category_id != null && category_id == 3)
+        {
+            products = productRepository.searchCategoryIsShirt("Áo", pageable);
+        }
+        if (q != null && !q.trim().isEmpty()) {
+            products = productRepository.searchProduct(q, pageable);
+        } else {
+            products = productRepository.findAll(pageable);
+        }
+        int totalPages = products.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
