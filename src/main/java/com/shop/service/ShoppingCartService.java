@@ -6,8 +6,8 @@ import java.util.Collection;
 
 public interface ShoppingCartService {
     void add(CartItem newItem);
-    void remove(int id);
-    CartItem update(int productID, int quantity);
+    void remove(Integer id);
+    CartItem update(Integer productID, int quantity);
     void clear();
     double getAmount();
     int getCount();

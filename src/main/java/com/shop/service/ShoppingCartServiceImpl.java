@@ -12,21 +12,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     Map<Integer, CartItem> shoppingCart = new HashMap<>();
     @Override
     public void add(CartItem newItem){
-        CartItem cartItem = shoppingCart.get(newItem.getClass());
+        CartItem cartItem =  shoppingCart.values().
+                stream().filter(e->e.getProductId() == newItem.getProductId()).findAny().orElse(null);
         if(cartItem == null){
+
             shoppingCart.put(newItem.getProductId(),newItem);
         }else{
+
             cartItem.setQuantity(cartItem.getQuantity()+1);
         }
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(Integer id) {
         shoppingCart.remove(id);
     }
 
     @Override
-    public CartItem update(int productID, int quantity) {
+    public CartItem update(Integer productID, int quantity) {
         CartItem cartItem = shoppingCart.get(productID);
         cartItem.setQuantity(quantity);
         return cartItem;

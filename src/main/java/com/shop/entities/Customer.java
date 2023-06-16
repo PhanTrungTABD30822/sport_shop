@@ -24,6 +24,7 @@ public class Customer  implements Serializable {
     @Size(max = 10, message = "Số điện thoại chỉ được 10 số")
     @NotBlank(message = "Số điện thoại không được để trống! ")
     private String phone;
+
     @NotBlank(message = "Email không được để trống! ")
     @Size(max = 50, message = "Email không quá 50 ký tự")
     private String email;
@@ -41,7 +42,7 @@ public class Customer  implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Comment> comments;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade=CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Order> orders;

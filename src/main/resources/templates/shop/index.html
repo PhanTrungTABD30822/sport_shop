@@ -14,10 +14,14 @@
     <!--Collection Banner-->
     <div class="collection-header">
         <div class="collection-hero">
-            <div class="collection-hero__image"><img class="blur-up lazyload"
-                                                     src="//theme.hstatic.net/200000580329/1000937158/14/slide_3_img.jpg?v=85"
-                                                     alt="Women" title="Women"/></div>
-            <div class="collection-hero__title-wrapper"><h1 class="collection-hero__title page-width"></h1></div>
+            <div class="collection-hero__image">
+                <img class="blur-up lazyload"
+                     src="//theme.hstatic.net/200000580329/1000937158/14/slide_3_img.jpg?v=85"
+                     alt="Women" title="Women"/></div>
+            <div class="collection-hero__title-wrapper">
+                <h1 class="collection-hero__title page-width">
+
+                </h1></div>
         </div>
     </div>
     <!--End Collection Banner-->
@@ -30,13 +34,12 @@
                 <div class="sidebar_tags">
                     <!--Categories-->
                     <div class="sidebar_widget categories filter-widget">
-                        <div class="widget-title"><h2>Danh mục</h2></div>
+                        <div class="widget-title"><h2>Danh mục sản phẩm</h2></div>
                         <div class="widget-content">
                             <ul class="sidebar_categories">
-                                <li class="level1 sub-level"><a href="#;" class="site-nav">Áo</a>
+                                <li class="level1 sub-level"><a href="#" class="site-nav">Áo</a>
                                     <ul class="sublinks">
                                         <li class="level2"><a href="/shop?category_id=3" class="site-nav">Áo CLB</a>
-                                        </li>
                                         <li class="level2"><a href="/shop?category_id=4" class="site-nav">Áo Đội
                                             Tuyển</a></li>
                                     </ul>
@@ -84,13 +87,6 @@
                         <img src="//theme.hstatic.net/200000580329/1000937158/14/csc_gallery_item_7_img.jpg?v=85"
                              alt=""/>
                     </div>
-                    <!--Banner-->
-                    <!--Information-->
-
-                    <!--end Information-->
-                    <!--Product Tags-->
-
-                    <!--end Product Tags-->
                 </div>
             </div>
             <!--End Sidebar-->
@@ -150,33 +146,17 @@
                                         <img class="hover blur-up lazyload"
                                              th:src="@{/images/__${product.img}__}"
                                              alt="image" title="product">
-
-                                        <!-- End hover image -->
-                                        <!-- product label -->
                                         <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span>
                                             <span class="lbl pr-label1">new</span></div>
-                                        <!-- End product label -->
                                     </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <!-- end product button -->
                                 </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
                                 <div class="product-details text-center">
-                                    <!-- product name -->
                                     <div class="product-name" th:text="${product.name}">
                                         <a href="#"></a>
                                     </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
                                     <div class="product-price">
                                         <span class="price" th:text="${product.price}" VND></span>
                                     </div>
-                                    <!-- End product price -->
-
                                     <div class="product-review">
                                         <i class="font-13 fa fa-star"></i>
                                         <i class="font-13 fa fa-star"></i>
@@ -184,10 +164,7 @@
                                         <i class="font-13 fa fa-star-o"></i>
                                         <i class="font-13 fa fa-star-o"></i>
                                     </div>
-                                    <!-- Variant -->
-                                    <!-- End Variant -->
                                 </div>
-                                <!-- End product details -->
                             </div>
                         </div>
                     </div>
@@ -206,11 +183,9 @@
                     </ul>
                 </div>
             </div>
-            <!--End Main Content-->
         </div>
     </div>
 </div>
-<!--End Body-->
 <div th:replace="fragments :: _footer">
 </div>
 <!--Scoll Top-->
