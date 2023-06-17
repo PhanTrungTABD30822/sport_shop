@@ -37,42 +37,29 @@
                                                     <h3 class="card-title">Hóa đơn mới</h3>
                                                 </div>
                                                 <div class="card-body">
-<!--                                                    <h5 class="number mb-0 font-32 counter" th:text="@{${ViewBag.orders_new}}"></h5>-->
+                                                    <h5 class="number mb-0 font-32 counter" th:text="${orders_new}"></h5>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xl-2 col-lg-4 col-md-6">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">
-                                                        <i class="fas fa-sack-dollar"></i>
-                                                        Tổng doanh thu</h3>
-                                                </div>
-                                                <div th:text="${getTotalPriceOrder == null ? 0 : getTotalPriceOrder}" class="card-body text-center">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-2 col-lg-4 col-md-6">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <i class="fas fa-file-invoice"></i>
-
-                                                    <h3 class="card-title">Hóa đơn đã hủy</h3>
-                                                </div>
-                                                <div  class="card-body text-center">
-                                                    <span th:text="${getCountOrderCancel == null ? '0' : getCountOrderCancel}"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-2 col-lg-4 col-md-6">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">
-                                                        <i class="fas fa-users"></i>
-                                                        Số lượng khách hàng đã đặt</h3>
+                                                    <h3 class="card-title">Doanh thu</h3>
                                                 </div>
                                                 <div class="card-body">
+
+
+                                                    <h5 class="number mb-0 font-32"   th:text="${sum}"></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-4 col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Hóa đơn đã hủy</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="number mb-0 font-32 counter" th:text="${orders_reject}"></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +69,7 @@
                                                     <h3 class="card-title">Số lượng khách hàng</h3>
                                                 </div>
                                                 <div class="card-body">
-<!--                                                    <h5 class="number mb-0 font-32 counter" th:text="@{${ViewBag.cus}}"></h5>-->
+                                                    <h5 class="number mb-0 font-32 counter" th:text="${cus}"></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -110,7 +97,7 @@
 </div>
 
 
-<div th:replace="/admin/layout :: js_script_layout">
+<div >
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -118,6 +105,16 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
+
+        let str=/*[[${Arr1}]]*/ [];
+        let str2=/*[[${Arr2}]]*/ [];
+
+        // var jsonString = "[\"17-05\",\"18-05\",\"19-05\",\"20-05\",\"21-05\",\"22-05\",\"23-05\",\"24-05\",\"25-05\",\"26-05\",\"27-05\",\"28-05\",\"29-05\",\"30-05\",\"31-05\",\"1-06\",\"2-06\",\"3-06\",\"4-06\",\"5-06\",\"6-06\",\"7-06\",\"8-06\",\"9-06\",\"10-06\",\"11-06\",\"12-06\",\"13-06\",\"14-06\",\"15-06\",\"16-06\"]";
+        var array = JSON.parse(str);
+        var array2 = JSON.parse(str2);
+
+        console.log(Array.isArray(array)); // Kiểm tra xem array có phải là một mảng không
+        console.log(array);
         Highcharts.chart('container_body', {
             title: {
                 text: 'Doanh thu 30 ngày gần nhất'
@@ -129,7 +126,7 @@
             },
 
             xAxis: {
-                // categories:@Html.Raw(@ViewBag.Arr1)
+                categories: array
             },
 
             legend: {
@@ -149,8 +146,8 @@
 
             series: [{
                 name: 'Doanh thu',
-                // data: @Html.Raw(@ViewBag.Arr2)
-
+                data: array2
+                // data:  [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
             }],
 
             responsive: {
@@ -169,6 +166,7 @@
             }
 
         });
+
 
         /*]]>*/
     </script>
