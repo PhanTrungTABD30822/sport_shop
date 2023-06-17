@@ -29,7 +29,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>, CrudRepo
 
 //    Object searchOrder(String trim);
 //    @Query("SELECT CONCAT(FUNCTION('DAY', o.time), '-', FUNCTION('MONTH', o.time)), SUM(o.totalPrice) " +
-//            "FROM Order o " +
+//            "FROM Order o " +q
 //            "WHERE o.status = 1 " +
 //            "GROUP BY CONCAT(FUNCTION('DAY', o.time), '-', FUNCTION('MONTH', o.time))")
 //    List<Object[]> calculateTotalPriceByStatus();

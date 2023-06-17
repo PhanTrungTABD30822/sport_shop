@@ -44,7 +44,7 @@
                     <td th:text="${item.product.name}"></td>
                     <td><img  th:src="@{/images/__${item.product.img}__}" width="100" /></td>
 
-                    <td th:text="${item.product.price}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 2, 'POINT')}"></td>
 
                     <td th:text="${item.quantity}"></td>
 
