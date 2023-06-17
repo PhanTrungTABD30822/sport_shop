@@ -99,7 +99,7 @@ public class CartController {
             customerService.save(customer);
             order.setCreatedAt(date);
             order.setCustomer(customer);
-            order.setTotalPrice(String.valueOf(shoppingCartService.getAmount()));
+            order.setTotalPrice((int) shoppingCartService.getAmount());
             System.out.println(customer);
 
             orderRepository.save(order);
