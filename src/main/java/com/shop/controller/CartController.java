@@ -46,7 +46,7 @@ public class CartController {
         return "cart/index";
     }
     @GetMapping("add/{id}")
-    public String addItem(@PathVariable("id") Integer id){
+    public String addItem(@PathVariable("id") Integer id,@RequestParam("size") String size){
         Product product = productRepository.findById(id).orElse(null);
         if(product !=null){
             CartItem item = new CartItem();
@@ -54,6 +54,7 @@ public class CartController {
             item.setName(product.getName());
             item.setImg(product.getImg());
             item.setPrice(product.getPrice());
+            item.setSize(size);
             item.setQuantity(1);
             shoppingCartService.add(item);
         }

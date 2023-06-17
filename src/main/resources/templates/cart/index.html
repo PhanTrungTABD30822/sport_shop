@@ -36,6 +36,7 @@
               <th class="text-center">Tên sản phẩm</th>
               <th class="text-center">Giá tiền</th>
               <th class="text-center">Số lượng</th>
+              <th class="text-center">Size</th>
               <th class="text-right">Thành tiền</th>
               <th class="action">&nbsp;</th>
             </tr>
@@ -60,6 +61,9 @@
                   <input type="number" th:name="quantity" th:value="${item.quantity}"
                          onblur="this.form.submit()" style="width:50px">
                 </form>
+              </td>
+              <td class="text-center small--hide cart-price">
+                <div><span class="money" th:text="${item.size}" ></span></div>
               </td>
               <td class="text-center small--hide cart-price">
                 <div><span class="money" th:text="${item.price}*${item.quantity}" ></span></div>
