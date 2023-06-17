@@ -26,6 +26,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer>, CrudRepo
 
     @Query("SELECT s.createdAt, SUM(s.totalPrice) FROM Order s WHERE s.createdAt >= ?1 AND s.createdAt <= ?2 GROUP BY s.createdAt")
     List<Object[]> calculateTotalPriceByDateRange(Date startDate, Date endDate);
+
+//    Object searchOrder(String trim);
 //    @Query("SELECT CONCAT(FUNCTION('DAY', o.time), '-', FUNCTION('MONTH', o.time)), SUM(o.totalPrice) " +
 //            "FROM Order o " +
 //            "WHERE o.status = 1 " +

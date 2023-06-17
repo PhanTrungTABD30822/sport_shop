@@ -15,7 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.DateFormatter;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Controller()
@@ -88,10 +93,13 @@ public class CartController {
         if(principal == null){
             return "redirect:/login";
         }else {
-
+            LocalDateTime now = LocalDateTime.now();
+            Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
             Customer customer = customerService.findById((Integer) httpSession.getAttribute("id"));
             customerService.save(customer);
+            order.setCreatedAt(date);
             order.setCustomer(customer);
+            order.setTotalPrice((int) shoppingCartService.getAmount());
             System.out.println(customer);
 
             orderRepository.save(order);

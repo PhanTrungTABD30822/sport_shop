@@ -16,7 +16,7 @@ public class AdminCategoryController {
     CategoryRepository categoryRepository;
 
     @GetMapping("")
-    public String index(Model model, String keyword) {
+    public String index(Model model, @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
         if(keyword != null && !keyword.trim().isEmpty())
         {
             model.addAttribute("categories", categoryRepository.search(keyword.trim()));
