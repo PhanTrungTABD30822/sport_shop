@@ -68,11 +68,11 @@
                                             <td></td>
                                             <td>
                                                 <a class="btn btn-primary" th:href="@{category/edit/{id}(id=${category.id})}"
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này? ')">Xóa
+                                                onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này? ')">Sửa
                                                 </a>
                                                 |
-                                                <a class="btn btn-secondary" th:href="@{category/delete/{id}(id=${category.id})}"
-                                                   onclick="return confirm('Bạn có chắc chắn muốn sửa sản phẩm này?')">Sửa
+                                                <a class="btn btn-secondary d-none" th:href="@{category/delete/{id}(id=${category.id})}"
+                                                   onclick="return confirm('Bạn có chắc chắn muốn sửa sản phẩm này?')">Xóa
                                                 </a>
                                             </td>
                                         </tr>
