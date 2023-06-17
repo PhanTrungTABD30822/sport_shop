@@ -101,6 +101,7 @@ public class CartController {
             customerService.save(customer);
             order.setCreatedAt(date);
             order.setCustomer(customer);
+            order.setStatus(0);
             order.setTotalPrice((int) shoppingCartService.getAmount());
             System.out.println(customer);
 
