@@ -9,18 +9,30 @@ import java.util.Map;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
-    Map<Integer, CartItem> shoppingCart = new HashMap<>();
+    Map<String, CartItem> shoppingCart = new HashMap<>();
+
     @Override
-    public void add(CartItem newItem){
-        CartItem cartItem =  shoppingCart.values().
-                stream().filter(e->e.getProductId() == newItem.getProductId()).findAny().orElse(null);
-        if(cartItem == null){
+    public void add(CartItem newItem) {
+//        System.out.println(newItem);
 
-            shoppingCart.put(newItem.getProductId(),newItem);
-        }else{
 
-            cartItem.setQuantity(cartItem.getQuantity()+1);
+
+        if (shoppingCart.values().size() == 0) {
+            shoppingCart.put(newItem.getProductId()+newItem.getSize(), newItem);
+        } else {
+            CartItem cartItem = shoppingCart.values().
+                    stream().filter(e -> e.getProductId() == newItem.getProductId()
+                            && e.getSize().equals(newItem.getSize())).findAny().orElse(null);
+            System.out.println(cartItem);
+
+            if (cartItem == null) {
+
+                shoppingCart.put(newItem.getProductId()+newItem.getSize(), newItem);
+            } else {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+            }
         }
+        System.out.println(shoppingCart.values());
     }
 
     @Override
@@ -34,6 +46,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         cartItem.setQuantity(quantity);
         return cartItem;
     }
+
     @Override
     public void clear() {
         shoppingCart.clear();
@@ -41,7 +54,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public double getAmount() {
-        return shoppingCart.values().stream().mapToDouble(item -> item.getQuantity()*item.getPrice()).sum();
+        return shoppingCart.values().stream().mapToDouble(item -> item.getQuantity() * item.getPrice()).sum();
     }
 
     @Override

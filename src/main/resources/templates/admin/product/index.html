@@ -91,7 +91,7 @@
                                                             <td>
                                                                 <a class="btn btn-primary" th:href="@{product/edit/{id}(id=${product.id})}"
                                                                 onclick="return confirm('Bạn có chắc chắn muốn sửa sản phẩm này')">Sửa</a> |
-                                                                <a class="btn btn-secondary" th:href="@{product/delete/{id}(id=${product.id})}"
+                                                                <a   class="btn btn-secondary d-none" th:href="@{product/delete/{id}(id=${product.id})}"
                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
                                                             </td>
                                                         </tr>

@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Repository
-public interface OrderDetailRepository extends JpaRepository<OrderDetails, RelationshipId>, CrudRepository<OrderDetails, RelationshipId> {
+public interface OrderDetailRepository extends JpaRepository<OrderDetails, Integer>, CrudRepository<OrderDetails, Integer> {
 
 
     List<OrderDetails> findByOrders(Order orders);

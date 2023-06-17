@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/category/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/admin/customer/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/admin/comment/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/admin/home/**").hasAnyAuthority("ADMIN")
                         .anyRequest().permitAll()
                 ) .formLogin(formLogin -> formLogin.loginPage("/login")
                         .loginProcessingUrl("/login")

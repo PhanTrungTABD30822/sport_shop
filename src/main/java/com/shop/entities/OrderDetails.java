@@ -11,20 +11,23 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name="order_detail")
-@IdClass(RelationshipId.class)
 public class OrderDetails  implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String size;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Order orders;
-    @Id
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Product product;
+
     private Integer quantity;
 
 }
