@@ -1,6 +1,8 @@
 package com.shop.controller.admin;
 
+import com.shop.entities.Order;
 import com.shop.repositories.CommentRepository;
+import com.shop.repositories.OrderRepository;
 import com.shop.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

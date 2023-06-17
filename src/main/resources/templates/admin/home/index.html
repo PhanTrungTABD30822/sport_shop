@@ -44,20 +44,35 @@
                                         <div class="col-xl-2 col-lg-4 col-md-6">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">Doanh thu</h3>
+                                                    <h3 class="card-title">
+                                                        <i class="fas fa-sack-dollar"></i>
+                                                        Tổng doanh thu</h3>
                                                 </div>
-                                                <div class="card-body">
-<!--                                                    <h5 class="number mb-0 font-32" th:text="@(double.Parse(${ViewBag.sum} + "").ToString('#,###', System.Globalization.CultureInfo.GetCultureInfo('vi-VN'))) VND"></h5>-->
+                                                <div th:text="${getTotalPriceOrder == null ? 0 : getTotalPriceOrder}" class="card-body text-center">
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xl-2 col-lg-4 col-md-6">
                                             <div class="card">
                                                 <div class="card-header">
+                                                    <i class="fas fa-file-invoice"></i>
+
                                                     <h3 class="card-title">Hóa đơn đã hủy</h3>
                                                 </div>
+                                                <div  class="card-body text-center">
+                                                    <span th:text="${getCountOrderCancel == null ? '0' : getCountOrderCancel}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-4 col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        <i class="fas fa-users"></i>
+                                                        Số lượng khách hàng đã đặt</h3>
+                                                </div>
                                                 <div class="card-body">
-<!--                                                    <h5 class="number mb-0 font-32 counter" th:text="@{${ViewBag.orders_reject}}"></h5>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -154,7 +169,6 @@
             }
 
         });
-
 
         /*]]>*/
     </script>

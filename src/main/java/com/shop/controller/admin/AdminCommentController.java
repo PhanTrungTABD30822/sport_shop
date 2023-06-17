@@ -36,7 +36,7 @@ public class AdminCommentController {
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<Comment> comments;
         if (keyword != null && !keyword.trim().isEmpty()) {
-            comments = commentRepository.searchComment(keyword, pageable);
+            comments = commentRepository.searchComment(keyword.trim(), pageable);
         } else {
             comments = commentRepository.findAll(pageable);
         }

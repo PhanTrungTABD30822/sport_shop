@@ -37,7 +37,6 @@ public class Customer  implements Serializable {
     private Integer gender;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
