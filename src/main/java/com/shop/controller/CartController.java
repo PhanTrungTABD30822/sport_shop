@@ -113,6 +113,6 @@ public class CartController {
             }
             shoppingCartService.clear();
         }
-        return "redirect:/checkout";
+        return "cart/ThongBao";
     }
 }
