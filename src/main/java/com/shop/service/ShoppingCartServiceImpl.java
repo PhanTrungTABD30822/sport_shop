@@ -1,6 +1,8 @@
 package com.shop.service;
 
 import com.shop.entities.CartItem;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -10,15 +12,15 @@ import java.util.Map;
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
     Map<String, CartItem> shoppingCart = new HashMap<>();
-
+    @Autowired
+    HttpSession session;
     @Override
     public void add(CartItem newItem) {
 //        System.out.println(newItem);
 
 
-
         if (shoppingCart.values().size() == 0) {
-            shoppingCart.put(newItem.getProductId()+newItem.getSize(), newItem);
+            shoppingCart.put(newItem.getProductId() + newItem.getSize(), newItem);
         } else {
             CartItem cartItem = shoppingCart.values().
                     stream().filter(e -> e.getProductId() == newItem.getProductId()
@@ -27,16 +29,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
             if (cartItem == null) {
 
-                shoppingCart.put(newItem.getProductId()+newItem.getSize(), newItem);
+                shoppingCart.put(newItem.getProductId() + newItem.getSize(), newItem);
             } else {
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
             }
         }
-        System.out.println(shoppingCart.values());
+//        session.setAttribute("cart",shoppingCart);
+
     }
 
     @Override
     public void remove(Integer id) {
+
+
+//        session.setAttribute("cart",null);
         shoppingCart.remove(id);
     }
 

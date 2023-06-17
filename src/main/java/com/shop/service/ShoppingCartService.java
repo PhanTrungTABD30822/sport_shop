@@ -1,6 +1,7 @@
 package com.shop.service;
 
 import com.shop.entities.CartItem;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.Collection;
 
