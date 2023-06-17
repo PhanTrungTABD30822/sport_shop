@@ -48,6 +48,7 @@ public class CartController {
     @GetMapping("add/{id}")
     public String addItem(@PathVariable("id") Integer id,@RequestParam("size") String size){
         Product product = productRepository.findById(id).orElse(null);
+        System.out.println(size);
         if(product !=null){
             CartItem item = new CartItem();
             item.setProductId(product.getId());
@@ -107,8 +108,10 @@ public class CartController {
             for ( CartItem cartItem: shoppingCartService.getAllItems()) {
               Product product=  productService.findById(cartItem.getProductId());
               OrderDetails orderDetails =new OrderDetails();
+
               orderDetails.setOrders(order);
               orderDetails.setProduct(product);
+              orderDetails.setSize(cartItem.getSize());
               orderDetails.setQuantity(cartItem.getQuantity());
                 orderDetailRepository.save(orderDetails);
             }
