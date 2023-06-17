@@ -53,10 +53,10 @@
                 </div>
               </td>
               <td class="cart__price-wrapper cart-flex-item text-center">
-                <span class="money" th:text="${item.price}"></span>
+                <span class="money" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 2, 'POINT')}"></span> VNĐ
               </td>
               <td>
-                <form action="#" th:action="@{/cart/update}" method="POST">
+                <form th:action="@{/cart/update}" method="POST">
                   <input type="hidden" th:name="productId" th:value="${item.productId}">
                   <input type="number" th:name="quantity" th:value="${item.quantity}"
                          onblur="this.form.submit()" style="width:50px">
@@ -66,7 +66,7 @@
                 <div><span class="money" th:text="${item.size}" ></span></div>
               </td>
               <td class="text-center small--hide cart-price">
-                <div><span class="money" th:text="${item.price}*${item.quantity}" ></span></div>
+                  <div><span class="money" th:text="${#numbers.formatDecimal(item.price * item.quantity, 0, 'COMMA', 2, 'POINT')}" ></span></div> VNĐ
               </td>
 
 
@@ -93,7 +93,7 @@
         <div class="solid-border">
           <div class="row">
             <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Thành tiền</strong></span>
-            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" th:text="${total_amount}"></span></span>
+            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money" th:text="${#numbers.formatDecimal(total_amount, 0, 'COMMA', 2, 'POINT')}"></span> VNĐ</span>
           </div>
           <div class="cart__shipping">Vận chuyển &amp; và thuế trước khi thanh toán</div>
           <p class="cart_tearm">
