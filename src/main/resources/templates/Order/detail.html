@@ -35,6 +35,7 @@
                   <tr>
                     <th>Tên sản phẩm</th>
                     <th>Hình ảnh</th>
+                    <th>Size</th>
                     <th>Giá tiền</th>
                     <th>Số lượng</th>
                   </tr>
@@ -43,6 +44,7 @@
                   <tr th:each="item : ${model}">
                     <td th:text="${item.product.name}"></td>
                     <td><img  th:src="@{/images/__${item.product.img}__}" width="100" /></td>
+                    <td ><div><span class="money" th:text="${item.size}" ></span></div></td>
 
                     <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 2, 'POINT')}"></td>
 

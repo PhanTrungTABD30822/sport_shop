@@ -39,6 +39,7 @@
                                     <thead>
                                     <tr>
                                         <th class="text-left">Tên sản phẩm</th>
+                                        <th>Size</th>
                                         <th>Giá tiền</th>
 
                                         <th>Số lượng</th>
@@ -52,6 +53,7 @@
                                             <td class="text-left" th:text="${item.name}">
 
                                             </td >
+                                            <td><div><span class="money" th:text="${item.size}" ></span></div></td>
 
                                             <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 2, 'POINT')}">
 
@@ -73,11 +75,11 @@
                                     </tbody>
                                     <tfoot class="font-weight-600">
                                     <tr>
-                                        <td colspan="3" class="text-right">Vận chuyển </td>
+                                        <td colspan="4" class="text-right">Vận chuyển </td>
                                         <td>Miễn phí</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="text-right">Tổng tiền</td>
+                                        <td colspan="4" class="text-right">Tổng tiền</td>
                                         <td th:text="${#numbers.formatDecimal(total_amount, 0, 'COMMA', 2, 'POINT')}"></td>
                                     </tr>
                                     </tfoot>
