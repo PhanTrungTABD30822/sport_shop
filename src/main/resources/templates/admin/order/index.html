@@ -21,23 +21,25 @@
                                 <div class="container-fluid">
                                     <div class="row clearfix">
                                         <div class="col-12">
-                                            <h2>Đơn hàng</h2>
+                                            <h2>Trang quản lý đơn hàng</h2>
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <form th:action="@{/Orders}" th:method="get">
+                                                    <form th:action="@{/admin/order}" th:method="get">
                                                         <div class="row">
                                                             <div class="col-lg-2 col-md-4 col-sm-6">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" name="q" placeholder="Search">
+                                                                    <label>
+                                                                        <input type="text" class="form-control" name="keyword" placeholder="Nhập tên cần tìm">
+                                                                    </label>
                                                                 </div>
                                                             </div>
+<!--                                                            <div class="col-lg-2 col-md-4 col-sm-6">-->
+<!--                                                                <div class="input-group">-->
+<!--                                                                    <input type="date" class="form-control" name="date" th:value="${#dates.format(date, 'yyyy-MM-dd') ?: ''}">-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
                                                             <div class="col-lg-2 col-md-4 col-sm-6">
-                                                                <div class="input-group">
-                                                                    <input type="date" class="form-control" name="date" th:value="${#dates.format(date, 'yyyy-MM-dd') ?: ''}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                                                <button type="submit" class="btn btn-primary btn-block" title="">Search</button>
+                                                                <button type="submit" class="btn btn-primary btn-block" title="">Tìm kiếm</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -49,10 +51,6 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                                         <thead>
-                                                        <tr>
-                                                            <th colspan="5">Đơn hàng</th>
-                                                            <th colspan="3">Hành động</th>
-                                                        </tr>
                                                         <tr>
                                                             <th>Id</th>
                                                             <th>Tên người nhận</th>
@@ -76,8 +74,7 @@
                                                             <td>
                                                                 <div style="overflow: hidden; inline-size: 150px;" th:text="${item.note}"></div>
                                                             </td>
-                                                            <td th:text="${item.totalPrice}"></td>
-
+                                                            <td th:text="${item.totalPrice + ' VND'}"></td>
                                                             <td>
                                                                 <span th:if="${item.status == 1}">Đã phê duyệt</span>
                                                                 <span th:if="${item.status == 2}">Đã hủy</span>
@@ -95,7 +92,7 @@
                                                             </td>
                                                             <td>
                                                                 <div>
-                                                                    <a th:href="@{/admin/order/{id}(id=${item.id})}">Chi tiết</a>
+                                                                    <a class="btn btn-primary" th:href="@{/admin/order/{id}(id=${item.id})}">Chi tiết</a>
                                                                 </div>
                                                             </td>
                                                         </tr>
