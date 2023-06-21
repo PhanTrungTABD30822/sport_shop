@@ -14,7 +14,7 @@
 	<name>shop</name>
 	<description>shop</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 
 	</properties>
 	<dependencies>
@@ -71,14 +71,10 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-
 		</plugins>
-		<finalName>devops-integration</finalName>
 	</build>
 </project>
