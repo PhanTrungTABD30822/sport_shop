@@ -1,11 +1,6 @@
 package com.shop.entities;
 
-import jakarta.persistence.OneToMany;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-import java.util.List;
 
 @Data
 public class CartItem {

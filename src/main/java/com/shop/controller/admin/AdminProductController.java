@@ -3,7 +3,6 @@ package com.shop.controller.admin;
 import com.shop.entities.Product;
 import com.shop.repositories.CategoryRepository;
 import com.shop.repositories.ProductRepository;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/product")
@@ -30,11 +28,9 @@ public class AdminProductController {
 
     @GetMapping("")
     public String index(Model model, String keyword) {
-        if(keyword != null && !keyword.trim().isEmpty())
-        {
+        if (keyword != null && !keyword.trim().isEmpty()) {
             model.addAttribute("products", productRepository.searchProductAdmin(keyword.trim()));
-        }else
-        {
+        } else {
             model.addAttribute("products", productRepository.findAll());
         }
         return "admin/product/index";
@@ -62,9 +58,9 @@ public class AdminProductController {
         }
         try {
             String originalFileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-            Path filePath =  Paths.get("C:\\Users\\ACER\\OneDrive\\Desktop\\git_sport_shop\\src\\main\\resources\\static\\images", originalFileName);
+            Path filePath = Paths.get("C:\\Users\\ACER\\OneDrive\\Desktop\\git_sport_shop\\src\\main\\resources\\static\\images", originalFileName);
 
-            Files.copy( file.getInputStream(),  filePath);
+            Files.copy(file.getInputStream(), filePath);
 
             model.addAttribute("message", "Tải lên file thành công: " + originalFileName);
             product.setImg(originalFileName);

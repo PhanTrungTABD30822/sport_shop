@@ -1,27 +1,19 @@
 package com.shop.controller;
+
 import com.shop.entities.Comment;
 import com.shop.entities.Customer;
 import com.shop.entities.Product;
 import com.shop.repositories.CommentRepository;
 import com.shop.repositories.CustomerRepository;
 import com.shop.repositories.ProductRepository;
-import com.zaxxer.hikari.metrics.dropwizard.CodahaleMetricsTrackerFactory;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.nio.file.AccessDeniedException;
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
