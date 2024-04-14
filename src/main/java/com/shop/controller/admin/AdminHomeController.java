@@ -35,8 +35,9 @@ public class AdminHomeController {
     private OrderRepository orderRepository;
     @Autowired
     private CustomerRepository customerRepository;
+
     @GetMapping("")
-    public String login(){
+    public String login() {
         return "admin/login";
     }
 
@@ -82,10 +83,10 @@ public class AdminHomeController {
             startDayLastMonth = maxDayLastMonth - getDayLastMonth;
         }
 
-        Map<String,Float> map = new LinkedHashMap<>();
+        Map<String, Float> map = new LinkedHashMap<>();
         for (int i = startDayLastMonth; i <= maxDayLastMonth; i++) {
 
-            String key = i + "-" +  lastMonth;
+            String key = i + "-" + lastMonth;
             map.put(key, 0f);
         }
 
@@ -124,6 +125,7 @@ public class AdminHomeController {
 
         System.out.println(new ObjectMapper().writeValueAsString(map.keySet().toArray()));
         System.out.println(new ObjectMapper().writeValueAsString(map.values().toArray()));
+        model.addAttribute("statisticsCommentEmoji", commentRepository.getEmojiCount());
         model.addAttribute("sum", formattedAmount);
         model.addAttribute("Arr1", new ObjectMapper().writeValueAsString(map.keySet().toArray()));
         model.addAttribute("Arr2", new ObjectMapper().writeValueAsString(map.values().toArray()));
@@ -133,3 +135,4 @@ public class AdminHomeController {
         return "admin/home/index";
     }
 }
+
