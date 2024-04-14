@@ -103,17 +103,16 @@ public class CartController {
             order.setCustomer(customer);
             order.setStatus(0);
             order.setTotalPrice((int) shoppingCartService.getAmount());
-            System.out.println(customer);
 
             orderRepository.save(order);
             for ( CartItem cartItem: shoppingCartService.getAllItems()) {
-              Product product=  productService.findById(cartItem.getProductId());
-              OrderDetails orderDetails =new OrderDetails();
+                Product product=  productService.findById(cartItem.getProductId());
+                OrderDetails orderDetails =new OrderDetails();
 
-              orderDetails.setOrders(order);
-              orderDetails.setProduct(product);
-              orderDetails.setSize(cartItem.getSize());
-              orderDetails.setQuantity(cartItem.getQuantity());
+                orderDetails.setOrders(order);
+                orderDetails.setProduct(product);
+                orderDetails.setSize(cartItem.getSize());
+                orderDetails.setQuantity(cartItem.getQuantity());
                 orderDetailRepository.save(orderDetails);
             }
             shoppingCartService.clear();
@@ -121,3 +120,4 @@ public class CartController {
         return "cart/ThongBao";
     }
 }
+
