@@ -51,13 +51,15 @@ public class CommentController {
     @ResponseBody
     @PostMapping("/api/comment")
     public String createComment(HttpServletRequest httpServletRequest, Principal principal, RedirectAttributes redirectAttributes) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<RequestEmoji> request = new HttpEntity<>(new RequestEmoji("bar"));
+        RequestEmoji foo = restTemplate.postForObject("http://localhost:5000/data", request, RequestEmoji.class);
 
         if (principal == null) {
             redirectAttributes.addFlashAttribute("returnPage", "/product/" + httpServletRequest.getParameter("productId"));
             return "redirect:/login";
         }
-        if(redirectAttributes.getFlashAttributes().containsKey("returnPage"))
-        {
+        if (redirectAttributes.getFlashAttributes().containsKey("returnPage")) {
             String returnUrl = (String) redirectAttributes.getFlashAttributes().get("returnUrl");
             System.out.println("log: " + returnUrl);
             redirectAttributes.getFlashAttributes().remove("returnUrl");
@@ -82,8 +84,9 @@ public class CommentController {
         comment.setCustomer(customer);
         comment.setContent((String) httpServletRequest.getParameter("content"));
         comment.setStar(Integer.valueOf(httpServletRequest.getParameter("star")));
+        comment.setEmoji(foo != null ? foo.getResult().name() : null);
         commentRepository.save(comment);
-        return customer.getName();
+        return customer.getName()+"-"+ comment.getEmoji();
     }
 
     @GetMapping("product/edit/{productId}")
@@ -172,4 +175,3 @@ public class CommentController {
 
 
 }
-
