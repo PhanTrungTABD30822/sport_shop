@@ -1,8 +1,31 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{/admin/layout :: head}">
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        /* Định dạng danh sách */
+        .emoji-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        /* Định dạng mỗi mục trong danh sách */
+        .emoji-item {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        /* Định dạng cho key */
+        .emoji-key {
+            font-weight: bold;
+        }
+        /* Định dạng cho value */
+        .emoji-value {
+            color: #007bff; /* Màu xanh */
+        }
+    </style>
 </head>
 <body>
 
@@ -30,7 +53,22 @@
                                                 <small>Đo lường tốc độ tăng doanh thu định kỳ hàng tháng của bạn</small>
                                             </div>
                                         </div>
-
+                                        <div class="row clearfix row-deck">
+                                            <div class="col-xl-12 col-lg-12">
+                                                <div class="card">
+                                                    <h3 class="card-title">Emoji Statistics</h3>
+                                                    <div class="card-body">
+                                                        <div class="card-body">
+                                                            <ul>
+                                                                <li th:each="entry : ${statisticsCommentEmoji}" class="emoji-item">
+                                                                    <span class="emoji-key" th:text="${entry.getEmoji()}"></span>: <span class="emoji-value" th:text="${entry.getNumber()}"></span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-xl-2 col-lg-4 col-md-6">
                                             <div class="card">
                                                 <div class="card-header">
